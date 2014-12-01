@@ -1,0 +1,35 @@
+; ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป        
+; บ  FILENAME:      PMSCREEN.DEF                                       mm/dd/yy   บ        
+; บ                                                                               บ        
+; บ  DESCRIPTION:   Module Definition File                                        บ        
+; บ                                                                               บ        
+; บ  NOTES:         This file contains all of the module definitions which        บ        
+; บ                 include the stacksize, heapsize, imports and exports defined. บ        
+; บ                                                                               บ        
+; บ  PROGRAMMER:    Uri Joseph Stern and James Stan Morrow                        บ        
+; บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ        
+; บ                                                                               บ        
+; บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ        
+; บ                                                                               บ        
+; ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ        
+NAME        PMSCREEN WINDOWAPI
+
+DESCRIPTION 'PMSCREEN - Chap17 Sample Program'
+
+CODE        MOVEABLE
+DATA        MOVEABLE MULTIPLE
+
+STACKSIZE   16384
+HEAPSIZE    16384
+
+
+IMPORTS     PMHOOKS.DLLInitRoutine
+            PMHOOKS.SetInputHook
+            PMHOOKS.ReleaseInputHook
+            PMHOOKS.InputHook
+            PMHOOKS.SetLockupHook
+            PMHOOKS.ReleaseLockupHook
+            PMHOOKS.SetFlushBufHook                         
+            PMHOOKS.ReleaseFlushBufHook                     
+            PMHOOKS.PrintScreenToBitmap
+

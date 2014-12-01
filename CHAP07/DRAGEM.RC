@@ -1,0 +1,68 @@
+// ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+// บ  FILENAME:      DRAGEM.RC                                        mm/dd/yy     บ
+// บ                                                                               บ
+// บ  DESCRIPTION:   Main resource script for DRAGEM                               บ
+// บ                                                                               บ
+// บ  NOTES:         None                                                          บ
+// บ                                                                               บ
+// บ  PROGRAMMER:    Uri Joseph Stern and James Stan Morrow                        บ
+// บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ
+// บ                                                                               บ
+// บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ
+// บ                                                                               บ
+// ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+
+#include "dragem.h"
+
+// --------------------------------------------------------------------------
+// Build application ICON and BITMAP resources
+// --------------------------------------------------------------------------
+ICON    RID_LAZY       dragem.ico
+BITMAP  IDB_PRODINFO   prodinfo.bmp                     
+
+
+// --------------------------------------------------------------------------
+// Presentation Parameters
+// --------------------------------------------------------------------------
+#define PP_PROGTITLE PRESPARAMS PP_FOREGROUNDCOLORINDEX, CLR_RED PRESPARAMS PP_FONTNAMESIZE, "28.Tms Rmn"
+
+// --------------------------------------------------------------------------
+// Build resource for the application's main menu
+// --------------------------------------------------------------------------
+MENU RID_LAZY
+{
+  SUBMENU "~Lazy Drag",               MID_LAZYDRAG
+  {
+     MENUITEM "~Pickup",              MID_PICKUP
+     SUBMENU  "~Drop",                MID_DROP
+     {
+        MENUITEM "~Copy",             MID_DROPCOPY
+        MENUITEM "~Move",             MID_DROPMOVE
+     }
+     MENUITEM "~Cancel",              MID_CANCEL
+  }
+  SUBMENU "~Drive",                   MID_DRIVE
+  {
+  }
+  SUBMENU "~Help",                    MID_HELP
+  {
+   MENUITEM "~Product Information",   MID_PRODINFO
+  }
+}
+
+// --------------------------------------------------------------------------
+// Define the template for the product information dialog.
+// --------------------------------------------------------------------------
+DLGTEMPLATE DLGID_PRODINFO LOADONCALL MOVEABLE DISCARDABLE
+{
+ DIALOG  "DRAGEM - Product Information", DLGID_PRODINFO, 75, 75, 275, 130,,FCF_TITLEBAR | FCF_SYSMENU
+ {
+  CONTROL         IDB_PRODINFO, IDB_PRODINFO, 20, 90, 21, 21, WC_STATIC, SS_BITMAP | WS_GROUP | WS_VISIBLE
+  LTEXT          "DRAGEM",                                                      -1   85,  90, 150,  25 PP_PROGTITLE
+  CTEXT           "OS/2 Warp Presentation Manager for Power Programmers",       -1,   7,  65, 255,  8
+  CTEXT           "Chapter 7 Sample Program",                                   -1,   7,  55, 255,  8
+  CTEXT           "by Uri J. Stern and James S. Morrow",                        -1,   7,  45, 255,  8
+  DEFPUSHBUTTON   "~OK"                                                     DID_OK, 115,   8,  45, 16, WS_GROUP
+ }
+}
+

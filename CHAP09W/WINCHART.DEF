@@ -1,0 +1,28 @@
+; ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป                  
+; บ  FILENAME:      WINCHART.DEF                                       mm/dd/yy   บ                  
+; บ                                                                               บ                  
+; บ  DESCRIPTION:   Module Definition File                                        บ                  
+; บ                                                                               บ                  
+; บ  NOTES:         This file contains all of the module definitions which        บ                  
+; บ                 include the stacksize, heapsize, imports and exports defined. บ                  
+; บ                                                                               บ                  
+; บ  PROGRAMMER:    Uri Joseph Stern and James Stan Morrow                        บ                  
+; บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ                  
+; บ                                                                               บ                  
+; บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ                  
+; บ                                                                               บ                  
+; ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ                  
+
+NAME        WINCHART
+
+EXETYPE     WINDOWS
+DESCRIPTION 'WINCHART - DDE Sample Program'
+
+STUB        'WINSTUB.EXE'
+
+CODE        PRELOAD MOVEABLE DISCARDABLE
+DATA        MULTIPLE PRELOAD MOVEABLE DISCARDABLE
+
+HEAPSIZE     8192
+STACKSIZE   16384
+

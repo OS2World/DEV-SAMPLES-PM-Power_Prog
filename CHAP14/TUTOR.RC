@@ -1,0 +1,27 @@
+// ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+// บ  FILENAME:      TUTOR.RC                                         mm/dd/yy     บ
+// บ                                                                               บ
+// บ  DESCRIPTION:   Main resource script for TUTOR                                บ
+// บ                                                                               บ
+// บ  NOTES:         None                                                          บ
+// บ                                                                               บ
+// บ  PROGRAMMER:    Uri Joseph Stern and James Stan Morrow                        บ
+// บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ
+// บ                                                                               บ
+// บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ
+// บ                                                                               บ
+// ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+
+#ifndef OS2_INCLUDED
+   #include <os2.h>
+#endif
+
+
+
+// --------------------------------------------------------------------------
+// Build bitmap resource for the tutorial.  
+// --------------------------------------------------------------------------
+BITMAP 1000 os2logo.bmp
+ICON   100  PRELOAD tutor.ico          
+
+

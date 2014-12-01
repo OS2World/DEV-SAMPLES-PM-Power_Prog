@@ -1,0 +1,20 @@
+;  ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+;  บ  FILENAME:      TUTORIAL.DEF                                     mm/dd/yy     บ
+;  บ                                                                               บ
+;  บ  DESCRIPTION:   Module Definition File for TUTORIAL.DLL used to implement     บ
+;  บ                 a new control for the Chapter 14 Sample                       บ
+;  บ                                                                               บ
+;  บ  PROGRAMMER:    Uri Joseph Stern and James Stan Morrow                        บ
+;  บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ
+;  บ                                                                               บ
+;  บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ
+;  บ                                                                               บ
+;  ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+;
+; Create a dynamic link library
+LIBRARY TUTORIAL
+
+; Define exported functions
+EXPORTS
+   RegisterTutorialControl
+

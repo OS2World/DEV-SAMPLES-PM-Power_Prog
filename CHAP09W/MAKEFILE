@@ -1,0 +1,73 @@
+#  ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป        
+#  บ  FILENAME:      MAKEFILE                                         mm/dd/yy     บ        
+#  บ                                                                               บ        
+#  บ  DESCRIPTION:   Build Script for WINCHART/Chapter 09 Sample Program           บ        
+#  บ                                                                               บ        
+#  บ  NOTES:         This program demonstartes the use of Dynamic Data Exchange.   บ        
+#  บ                                                                               บ        
+#  บ  PROGRAMMER:    Uri Joseph Stern and James Stan Morrow                        บ        
+#  บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ        
+#  บ                                                                               บ        
+#  บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ        
+#  บ                                                                               บ        
+#  ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ        
+
+# --------------------------------------------------------------------------       
+# Define the windows environment we are working in.                               
+# --------------------------------------------------------------------------       
+WIN386=0                    
+
+# --------------------------------------------------------------------------                  
+# Define the compiler and compiler flags to be used.                                          
+# --------------------------------------------------------------------------                  
+COMPILER = wccp
+CFLAGS   = -zW -oaxt -d1 -w4 -ml
+
+# --------------------------------------------------------------------------            
+# Define the linker to be used.                                    
+# --------------------------------------------------------------------------            
+LINKER   = wlink
+
+# --------------------------------------------------------------------------               
+# Define the various filename macros                               
+# --------------------------------------------------------------------------               
+MODNAME    = winchart
+EXECUTABLE = winchart.exe             
+SYMFILE    = winchart.sym
+RESOURCE   = winchart.res
+RCFILE     = winchart.rc              
+LINKFILE   = winchart.lnk
+
+OBJECT     = winchart.obj 
+
+$(EXECUTABLE) : $(OBJECT) $(RESOURCE) $(LINKFILE)
+    $(LINKER) @$(LINKFILE)
+!ifeq WIN386 1
+    wbind $(MODNAME) -R -30 $(RESOURCE)
+!else
+    wrc -30 $(RESOURCE)
+    copy /b $(EXECUTABLE)+$(SYMFILE)
+!endif
+
+$(RESOURCE) : $(RCFILE)
+    wrc -r -30 $(RCFILE)
+
+$(LINKFILE) : makefile 
+    %create $(LINKFILE)
+    @%append $(LINKFILE) debug all
+!ifeq WIN386 1
+    @%append $(LINKFILE) sys win386
+    @%append $(LINKFILE) option mindata=100K
+    @%append $(LINKFILE) option maxdata=100K
+!else
+    @%append $(LINKFILE) sys windows
+    @%append $(LINKFILE) option heapsize=20k
+    @%append $(LINKFILE) option symfile = $(SYMFILE)
+    @%append $(LINKFILE) library windows
+!endif
+    @%append $(LINKFILE) option stack=8k
+    @%append $(LINKFILE) name $(MODNAME)
+    @for %i in ($(OBJECT)) do @%append $(LINKFILE) file %i
+
+.c.obj :
+        $(COMPILER) $(CFLAGS) $[*

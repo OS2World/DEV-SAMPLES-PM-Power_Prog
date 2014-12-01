@@ -1,0 +1,81 @@
+#  ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+#  บ  FILENAME:      MAKEFILE                                         mm/dd/yy     บ
+#  บ                                                                               บ
+#  บ  DESCRIPTION:   Build Script for SHCOMMON code used by all sample programs    บ
+#  บ                                                                               บ
+#  บ  NOTES:         Instructions for building the dynamic link library.           บ
+#  บ                                                                               บ
+#  บ  PROGRAMMER:    Uri Joseph Stern and James Stan Morrow                        บ
+#  บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ
+#  บ                                                                               บ
+#  บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ
+#  บ                                                                               บ
+#  ฬอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออน
+#  บ                                                                               บ
+#  บ                            Compiler Options                                   บ
+#  ฬอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออน
+#  บ                                                                               บ
+#  บ  /C      Compile only, do not link                                            บ
+#  บ  /Q      Do NOT display Compiler Logo Information (Who needs it??)            บ
+#  บ  /Ss     Allow Double-Slash (//) Comments                                     บ
+#  บ  /Ti     Generate debug information                                           บ
+#  บ  /Gm     Link with the Multi-Threaded Library                                 บ
+#  บ  /W3     Compile with Warning Level 3 Invoked                                 บ
+#  บฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤบ
+#  บ  /O+     Optimize Code                                                        บ
+#  บ  /Ti-    Do NOT generate debug information                                    บ
+#  บ  /Gs-    Do NOT remove Stack Probes                                           บ
+#  บ  /Sa     Strict ANSI Conformance                                              บ
+#  บ  /Ge-    Build a DLL                                                          บ
+#  ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+
+#  --------------------------------------------------------------------------
+#  Define source file types to consider
+#  --------------------------------------------------------------------------
+.SUFFIXES:
+.SUFFIXES: .c .rc
+
+# --------------------------------------------------------------------------          
+# Define the object files that will be built by the compile.                          
+# --------------------------------------------------------------------------          
+COMMON = shcommon.obj                                                                
+
+# --------------------------------------------------------------------------                     
+# Define the various input and output files.                                     
+# --------------------------------------------------------------------------                     
+DLL        = SHCOMMON.DLL             
+MAPFILE    = SHCOMMON.MAP
+DEFFILE    = SHCOMMON.DEF
+
+#  --------------------------------------------------------------------------
+#  Target for building all components of the application
+#  --------------------------------------------------------------------------
+ALL: $(DLL)
+
+#  --------------------------------------------------------------------------
+#  Target for building the SHCOMMON dynamic link library
+#  --------------------------------------------------------------------------
+$(DLL): $(COMMON) $(DEFFILE) makefile
+   ICC.EXE @<<
+ /B" /de /pmtype:pm /nologo /m:full"
+ /Fe"$(DLL)"
+$(COMMON)
+$(DEFFILE)
+<<
+   MAPSYM $(MAPFILE)                      
+
+#  --------------------------------------------------------------------------
+#  generic build rules
+#  --------------------------------------------------------------------------
+{.}.rc.res:                     
+   RC -r $*.RC                  
+
+{.}.c.obj:
+   ICC.EXE /Ss /Q /Ti /Gm /C   $*.c
+
+# --------------------------------------------------------------------------      
+# Define dependencies for the applications build targets                          
+# --------------------------------------------------------------------------      
+$(COMMON):  shcommon.c shcommon.h                 
+   ICC.EXE /Ss /Q /Ti /Ge- /C   $*.c              
+

@@ -1,0 +1,48 @@
+.* ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+.* บ  FILENAME:      CARDFILE.IPH                                     mm/dd/yy     บ
+.* บ                                                                               บ
+.* บ  DESCRIPTION:   Help Header File for CARDFILE, defining panel ID symbols      บ
+.* บ                                                                               บ
+.* บ  NOTES:         These IDs are also reflected in CARDFILE.H                    บ
+.* บ                                                                               บ
+.* บ  PROGRAMMER:    Uri Joseph Stern and James Stan Morrow                        บ
+.* บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ
+.* บ                                                                               บ
+.* บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ
+.* บ                                                                               บ
+.* ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+.nameit symbol='APPLICATION_ID'  text='100'
+.nameit symbol='NOTEBOOK_ID'     text='101'
+.nameit symbol='DID_EDITCARD'    text='103'
+.nameit symbol='MID_FILE'        text='110'
+.nameit symbol='MID_FILENEW'     text='111'
+.nameit symbol='MID_FILEOPEN'    text='112'
+.nameit symbol='MID_FILESAVE'    text='113'
+.nameit symbol='MID_FILESAVEAS'  text='114'
+.nameit symbol='MID_FILEEXIT'    text='115'
+.nameit symbol='MID_CARD'        text='120'
+.nameit symbol='MID_CARDCREATE'  text='121'
+.nameit symbol='MID_CARDEDIT'    text='122'
+.nameit symbol='MID_CARDREMOVE'  text='123'
+.nameit symbol='MID_HELP'        text='130'
+.nameit symbol='MID_HELPGENERAL' text='131'
+.nameit symbol='MID_HELPUSING'   text='132'
+.nameit symbol='MID_HELPKEYS'    text='133'
+.nameit symbol='MID_HELPPROD'    text='134'
+.nameit symbol='DID_EDITNAMEI'   text='202'
+.nameit symbol='DID_EDITNAMEL'   text='204'
+.nameit symbol='DID_EDITCOMP'    text='206'
+.nameit symbol='DID_EDITADDR1'   text='208'
+.nameit symbol='DID_EDITADDR2'   text='210'
+.nameit symbol='DID_EDITCITY'    text='212'
+.nameit symbol='DID_EDITSTATE'   text='214'
+.nameit symbol='DID_EDITZIP'     text='216'
+.nameit symbol='DID_EDITPHONE'   text='218'
+.nameit symbol='DID_EDITDOB'     text='220'
+.nameit symbol='DID_EDITANN'     text='222'
+.nameit symbol='DID_EDITTYPE'    text='223'
+.nameit symbol='DID_EDITRATING'  text='226'
+.nameit symbol='DID_EDITMLE'     text='230'
+.nameit symbol='DID_EDITOK'      text='231'
+.nameit symbol='DID_EDITCAN'     text='232'
+

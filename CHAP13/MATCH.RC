@@ -1,0 +1,166 @@
+// ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป          
+// บ  FILENAME:      MATCH.RC                                         mm/dd/yy     บ          
+// บ                                                                               บ          
+// บ  DESCRIPTION:   Resource Script File for MATCH executable                     บ          
+// บ                                                                               บ          
+// บ  NOTES:         This file contains all of the resource information for the    บ          
+// บ                 MATCH executable including the dialog templates, menus and    บ          
+// บ                 accelerators and stringtables.                                บ          
+// บ                                                                               บ          
+// บ  PROGRAMMER:    Uri Joseph Stern and James Stan Morrow                        บ          
+// บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ          
+// บ                                                                               บ          
+// บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ          
+// บ                                                                               บ          
+// ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ          
+
+#include <os2.h>
+#include "match.h"
+
+ICON     ID_MAINWND   PRELOAD match.ico           
+BITMAP   IDB_PRODINFO "prodinfo.bmp"
+
+
+// --------------------------------------------------------------------------
+// Build the application frame window menu resource
+// --------------------------------------------------------------------------
+MENU 1000
+{
+  SUBMENU     "~Options",             ID_OPTIONS
+  {
+   MENUITEM   "New ~Game",            IDM_START
+   MENUITEM   "~Product Information", IDM_PRODINFO 
+  }
+}
+
+DLGTEMPLATE ID_PRODINFO LOADONCALL MOVEABLE DISCARDABLE
+{
+ DIALOG  "PMEDIT - Product Information", ID_PRODINFO, 75, 75, 275, 130,,FCF_TITLEBAR | FCF_SYSMENU
+ {
+  CONTROL         IDB_PRODINFO, IDB_PRODINFO, 20, 90, 21, 21, WC_STATIC, SS_BITMAP | WS_GROUP | WS_VISIBLE
+  LTEXT          "MATCH",                                                       -1  100,  90, 150,  25 PP_PROGTITLE
+  CTEXT           "OS/2 Warp Presentation Manager for Power Programmers",       -1,   7,  65, 255,  8
+  CTEXT           "Chapter 13 Sample Program",                                  -1,   7,  55, 255,  8
+  CTEXT           "by Uri J. Stern and James S. Morrow",                        -1,   7,  45, 255,  8
+  DEFPUSHBUTTON   "~OK"                                                     DID_OK, 115,   8,  45, 16, WS_GROUP
+ }
+}
+
+
+// --------------------------------------------------------------------------
+// Build the bitmap resources for the button numbers
+// --------------------------------------------------------------------------
+bitmap 1 1.bmp
+bitmap 2 2.bmp
+bitmap 3 3.bmp
+bitmap 4 4.bmp
+bitmap 5 5.bmp
+bitmap 6 6.bmp
+bitmap 7 7.bmp
+bitmap 8 8.bmp
+bitmap 9 9.bmp
+bitmap 10 10.bmp
+bitmap 11 11.bmp
+bitmap 12 12.bmp
+bitmap 13 13.bmp
+bitmap 14 14.bmp
+bitmap 15 15.bmp
+bitmap 16 16.bmp
+bitmap 17 17.bmp
+bitmap 18 18.bmp
+bitmap 19 19.bmp
+bitmap 20 20.bmp
+bitmap 21 21.bmp
+bitmap 22 22.bmp
+bitmap 23 23.bmp
+bitmap 24 24.bmp
+bitmap 25 25.bmp
+
+// --------------------------------------------------------------------------
+// Build the bitmap resources for the trip prize
+// --------------------------------------------------------------------------
+bitmap 100  ap1.bmp
+bitmap 101  ap2.bmp
+bitmap 102  ap3.bmp
+bitmap 103  ap4.bmp
+bitmap 104  ap5.bmp
+bitmap 105  ap6.bmp
+
+// --------------------------------------------------------------------------
+// Build the bitmap resource for the car prize
+// --------------------------------------------------------------------------
+bitmap 110  car1.bmp
+
+// --------------------------------------------------------------------------
+// Build the bitmap resources for the ring prize
+// --------------------------------------------------------------------------
+bitmap 120  ring1.bmp
+bitmap 121  ring2.bmp
+bitmap 122  ring3.bmp
+
+// --------------------------------------------------------------------------
+// Build the bitmap resource for the cash prize
+// --------------------------------------------------------------------------
+bitmap 130  cash.bmp
+
+// --------------------------------------------------------------------------
+// Build the bitmap resource for the boat prize
+// --------------------------------------------------------------------------
+bitmap 140  boat.bmp
+
+// --------------------------------------------------------------------------
+// Build the bitmap resources for the wildcard prize
+// --------------------------------------------------------------------------
+bitmap 150  wild11.bmp
+bitmap 151  wild12.bmp
+bitmap 152  wild13.bmp
+bitmap 153  wild14.bmp
+bitmap 154  wild15.bmp
+
+// --------------------------------------------------------------------------
+// Build the bitmap resources for the china prize
+// --------------------------------------------------------------------------
+bitmap 160  china1.bmp
+
+// --------------------------------------------------------------------------
+// Build the bitmap resources for the take prize
+// --------------------------------------------------------------------------
+bitmap 170  take1.bmp
+bitmap 171  take2.bmp
+bitmap 172  take3.bmp
+bitmap 173  take4.bmp
+bitmap 174  take5.bmp
+bitmap 175  take6.bmp
+
+// --------------------------------------------------------------------------
+// Build the bitmap resources for the piano prize
+// --------------------------------------------------------------------------
+bitmap 180  piano1.bmp
+bitmap 181  piano2.bmp
+bitmap 182  piano3.bmp
+
+// --------------------------------------------------------------------------
+// Build the bitmap resources for the motorcycle prize
+// --------------------------------------------------------------------------
+bitmap 190  cycle1.bmp
+bitmap 191  cycle2.bmp
+bitmap 192  cycle3.bmp
+
+// --------------------------------------------------------------------------
+// Build the bitmap resources for the tv prize
+// --------------------------------------------------------------------------
+bitmap 200  tv1.bmp
+bitmap 201  tv2.bmp
+bitmap 202  tv2.bmp
+bitmap 203  tv3.bmp
+
+// --------------------------------------------------------------------------
+// Build the bitmap resource for the brass bed prize
+// --------------------------------------------------------------------------
+bitmap 210  bed.bmp
+
+// --------------------------------------------------------------------------
+// Build the bitmap resource for the background
+// --------------------------------------------------------------------------
+bitmap 1000 os2logo.bmp
+

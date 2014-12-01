@@ -1,0 +1,116 @@
+// ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+// บ  FILENAME:      PRINTIT.RC                                       mm/dd/yy     บ
+// บ                                                                               บ
+// บ  DESCRIPTION:   Resource Script for PRINTIT/Chapter 16 Sample Program         บ
+// บ                                                                               บ
+// บ  NOTES:         This program demonstrates the printing and font management.   บ
+// บ                                                                               บ
+// บ  PROGRAMMER:    Uri Joseph Stern and James Stan Morrow                        บ
+// บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ
+// บ                                                                               บ
+// บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ
+// บ                                                                               บ
+// ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+
+#include "printit.h"
+
+// --------------------------------------------------------------------------                              
+// Presentation Parameters                                                                                 
+// --------------------------------------------------------------------------                              
+#define TEXT_COLOR PRESPARAMS PP_FOREGROUNDCOLORINDEX                                                      
+#define PP_PROGTITLE PRESPARAMS PP_FOREGROUNDCOLORINDEX, CLR_RED PRESPARAMS PP_FONTNAMESIZE, "28.Tms Rmn"  
+
+// --------------------------------------------------------------------------                        
+// The Product Information Bitmap                                                                    
+// --------------------------------------------------------------------------                        
+BITMAP     IDB_PRODINFO    prodinfo.bmp                                                               
+
+// -------------------------------------------------------------------------- 
+// Define our main program icon 
+// --------------------------------------------------------------------------
+ICON RID_APPWND PRELOAD printit.ico           
+
+// --------------------------------------------------------------------------
+// Define menu for the primary application window
+// --------------------------------------------------------------------------
+MENU RID_APPWND
+{
+  SUBMENU "~File",       MID_FILE
+  {
+     MENUITEM "~Open...",              MID_OPEN
+     MENUITEM SEPARATOR
+     MENUITEM "~Print",                MID_PRINT
+     MENUITEM "Printer ~Setup...",     MID_QUEUE
+  }
+
+  SUBMENU "~Options",    MID_OPTIONS
+  {
+     MENUITEM "Select ~font...",       MID_FONT           
+     MENUITEM "Set ~margins...",       MID_MARGINS
+  }
+
+  SUBMENU "~Help",       MID_HELPMENU         
+  {                                                                         
+     MENUITEM "~General help",         MID_HELPGEN             
+     MENUITEM "~Keys help",            MID_HELPKEYS            
+     MENUITEM SEPARATOR                                                  
+     MENUITEM "~Product Information",  MID_PRODINFO               
+  }                                                                         
+}
+
+// --------------------------------------------------------------------------
+// Build Dialog Template Resource for the Print Queue Selection Dialog
+// --------------------------------------------------------------------------
+DLGTEMPLATE SELPRT_ID LOADONCALL MOVEABLE DISCARDABLE
+{
+  DIALOG  "Printer Setup", SELPRT_ID, 7, 2, 341, 84, WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR 
+  {
+   GROUPBOX        "Defined Printer Queues", 0, 3, 3, 231, 80
+   LISTBOX         CID_PRINTERLB, 10, 8, 216, 71
+   PUSHBUTTON      "Ok", DID_OK, 246, 66, 89, 14
+   PUSHBUTTON      "Job Properties", CID_SETUP, 246, 48, 89, 14
+   PUSHBUTTON      "Cancel", DID_CANCEL, 246, 30, 89, 14
+  }
+}
+
+// --------------------------------------------------------------------------
+// Build Dialog Template Resource for the set margins dialog
+// --------------------------------------------------------------------------
+DLGTEMPLATE SELFORM_ID LOADONCALL MOVEABLE DISCARDABLE
+{
+  DIALOG  "Setup Page Format", SELFORM_ID, 62, 38, 180, 113, WS_VISIBLE,
+          FCF_SYSMENU | FCF_TITLEBAR
+  {
+   GROUPBOX        "Margins",              0,   3, 25, 172, 84
+   LTEXT           "Left",               108,  13, 88,  18,  8, NOT WS_GROUP
+   ENTRYFIELD      "",          CID_MAR_LEFT,  55, 88,  32,  8, ES_MARGIN
+   LTEXT           "Right",              109,  13, 70,  23,  8, NOT WS_GROUP
+   ENTRYFIELD      "",         CID_MAR_RIGHT,  55, 70,  32,  8, ES_MARGIN
+   LTEXT           "Top",                110,  13, 52,  16,  8, NOT WS_GROUP
+   ENTRYFIELD      "",           CID_MAR_TOP,  55, 52,  32,  8, ES_MARGIN
+   LTEXT           "Bottom",             111,  13, 34,  30,  8, NOT WS_GROUP
+   ENTRYFIELD      "",        CID_MAR_BOTTOM,  55, 34,  32,  8, ES_MARGIN
+   CONTROL         "",           CID_MEASURE, 107, 32,  51, 66, WC_VALUESET, VS_TEXT | VS_ITEMBORDER |
+                                                                WS_TABSTOP | WS_VISIBLE CTLDATA 8, 0, 3, 1  
+   DEFPUSHBUTTON   "~Ok",             DID_OK,   6,  4,  40, 14, WS_GROUP
+   PUSHBUTTON      "~Cancel",     DID_CANCEL,  49,  4,  40, 14
+  }
+}
+
+// --------------------------------------------------------------------------         
+// Build Dialog Template Resource for Product Information                         
+// --------------------------------------------------------------------------         
+DLGTEMPLATE MID_PRODINFO LOADONCALL MOVEABLE DISCARDABLE
+{
+    DIALOG  "PRINTIT - Product Information", MID_PRODINFO, 75, 75, 275, 130,,FCF_TITLEBAR | FCF_SYSMENU
+    {
+        CONTROL         IDB_PRODINFO, IDB_PRODINFO, 20, 90, 21, 21, WC_STATIC, SS_BITMAP | WS_GROUP | WS_VISIBLE
+        LTEXT          "PRINTIT",                                                     -1   95,  90, 150,  25 PP_PROGTITLE
+        CTEXT           "OS/2 Warp Presentation Manager for Power Programmers",       -1,   7,  65, 255,  8
+        CTEXT           "Chapter 16 Sample Program",                                  -1,   7,  55, 255,  8
+        CTEXT           "by Uri J. Stern and James S. Morrow",                        -1,   7,  45, 255,  8
+        DEFPUSHBUTTON   "~OK"                                                     DID_OK, 115,   8,  45, 16, WS_GROUP
+    }
+}
+
+

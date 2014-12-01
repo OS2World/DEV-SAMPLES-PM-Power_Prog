@@ -1,0 +1,139 @@
+// ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+// บ  FILENAME:      PMSTATS.RC                                       mm/dd/yy     บ
+// บ                                                                               บ
+// บ  DESCRIPTION:   Resource Script File for PMSTATS                              บ
+// บ                                                                               บ
+// บ  NOTES:         This file contains all of the various dialog templates,       บ
+// บ                 menu defintions, keyboard accelerators and message tables     บ
+// บ                 that are used by PMSTATS.                                     บ
+// บ                                                                               บ
+// บ  PROGRAMMER:    Uri Joseph Stern and Stan Morrow                              บ
+// บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for the Power Programmer       บ
+// บ                                                                               บ
+// บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ
+// บ                                                                               บ
+// ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+
+#include <os2.h>
+#include "pmstats.h"
+
+// --------------------------------------------------------------------------            
+// Set the Presentation Parameters.              
+// --------------------------------------------------------------------------            
+#define PP_PROGTITLE PRESPARAMS PP_FOREGROUNDCOLORINDEX, CLR_RED PRESPARAMS PP_FONTNAMESIZE, "28.Tms Rmn"
+#define PP_SPYWINDOW PRESPARAMS PP_FOREGROUNDCOLORINDEX, CLR_RED PRESPARAMS PP_FONTNAMESIZE, "10.Courier"
+
+// --------------------------------------------------------------------------              
+// Define the icon, bitmap and pointer resources used by the application                   
+// --------------------------------------------------------------------------              
+ICON     ID_FRAME        pmstats.ico
+BITMAP   IDB_PRODINFO    prodinfo.bmp       
+BITMAP   IDB_OS2TILE     os2tile.bmp        
+
+// --------------------------------------------------------------------------              
+// Define our action bar menu                                                              
+// --------------------------------------------------------------------------              
+MENU ID_FRAME PRELOAD
+{
+   SUBMENU "~File",                         ID_FILEMENU
+   {
+    MENUITEM "~Enter Statistics...\tF5",    IDM_ENTERSTATS
+   }                                                                      
+
+   SUBMENU "~Help",                         ID_HELPMENU, MIS_HELP           
+    {                                                                         
+     MENUITEM "~General help",              IDM_HELPGEN                
+     MENUITEM "~Keys help",                 IDM_HELPKEYS               
+     MENUITEM SEPARATOR                                                       
+     MENUITEM "~Product Information",       IDM_PRODINFO               
+    }                                                                         
+}
+
+// --------------------------------------------------------------------------            
+// Define our accelerator table                                                          
+// --------------------------------------------------------------------------            
+ACCELTABLE ID_FRAME PRELOAD                                               
+{                                                                    
+  VK_F5,     IDM_ENTERSTATS,                  VIRTUALKEY                      
+}                                                                        
+
+
+// --------------------------------------------------------------------------         
+// The Product Information dialog template                                            
+// --------------------------------------------------------------------------         
+DLGTEMPLATE IDD_PRODINFO LOADONCALL MOVEABLE DISCARDABLE
+{
+ DIALOG  "PMSTATS - Product Information", IDD_PRODINFO, 75, 75, 275, 130,,FCF_TITLEBAR | FCF_SYSMENU
+ {
+  CONTROL         IDB_PRODINFO, IDB_PRODINFO, 20, 90, 21, 21, WC_STATIC, SS_BITMAP | WS_GROUP | WS_VISIBLE
+  LTEXT          "PMSTATS",                                                     -1   90,  90, 150,  25 PP_PROGTITLE
+  CTEXT           "OS/2 Warp Presentation Manager for Power Programmers",       -1,   7,  65, 255,  8
+  CTEXT           "Chapter 9 Sample Program",                                   -1,   7,  55, 255,  8
+  CTEXT           "by Uri J. Stern and James S. Morrow",                        -1,   7,  45, 255,  8
+  DEFPUSHBUTTON   "~OK"                                                     DID_OK, 120,   8,  45, 16, WS_GROUP
+ }
+}
+
+
+// --------------------------------------------------------------------------         
+// The Spreadsheet dialog template                                            
+// --------------------------------------------------------------------------         
+DLGTEMPLATE IDD_SPREADSHEET LOADONCALL MOVEABLE DISCARDABLE                                                                                           
+{                                                                                                                                                  
+ DIALOG "PMSTATS - Measure Customer Satisfaction", IDD_SPREADSHEET, 8, 20, 400, 220, WS_SAVEBITS | WS_VISIBLE,  FCF_TITLEBAR | FCF_DLGBORDER | FCF_SYSMENU | FCF_TASKLIST
+  {                                                                                                                                              
+   GROUPBOX      "Customer Satisfaction Survey Percentages"    -1 3, 90,  395, 75                                                                           
+
+   CONTROL         IDB_OS2TILE, IDB_OS2TILE,    10,   175,   21,  21, WC_STATIC, SS_BITMAP | WS_GROUP | WS_VISIBLE          
+
+   LTEXT "Product Name"           -1,            75,  190,   65,  8                                                                            
+   COMBOBOX    ""              IDC_PRODUCTS,    140,  140,  140, 60,  CBS_DROPDOWN 
+
+   LTEXT "Date"                   -1,           300,  190,   55,  8                                                                            
+   CONTROL    "", ID_STATIC,                    340,  190,   55,  8, WC_STATIC, SS_TEXT | WS_GROUP | WS_VISIBLE
+
+   LTEXT "January"                -1,            10,  140,  70,   8                                                                            
+   ENTRYFIELD ""                IDE_MONTH01,     60,  140,  20,   8,  ES_MARGIN                                                                
+                                                                                                                                              
+   LTEXT "February"               -1,            10,  120,  70,   8                                                                            
+   ENTRYFIELD ""                IDE_MONTH02,     60,  120,  20,   8,  ES_MARGIN                                                                
+                                                                                                                                              
+   LTEXT "March"                  -1,            10,  100,  70,   8                                                                            
+   ENTRYFIELD ""                IDE_MONTH03,     60,  100,  20,   8,  ES_MARGIN                                                                
+                                                                                                                                              
+   LTEXT "April"                  -1,           100,  140,  70,   8                                                                            
+   ENTRYFIELD ""                IDE_MONTH04,    160,  140,  20,   8,  ES_MARGIN                                                                
+
+   LTEXT "May"                    -1,           100,  120,  70,   8                                                                                                                                                                                                                        
+   ENTRYFIELD ""                IDE_MONTH05,    160,  120,  20,   8,  ES_MARGIN                                                                                                                                                                                                            
+
+   LTEXT "June"                   -1,           100,  100,  70,   8                                                                            
+   ENTRYFIELD ""                IDE_MONTH06,    160,  100,  20,   8,  ES_MARGIN                                                                
+                                                                                                                                              
+   LTEXT "July"                   -1,           200,  140,  70,   8                                                                            
+   ENTRYFIELD ""                IDE_MONTH07,    260,  140,  20,   8,  ES_MARGIN                                                                
+                                                                                                                                               
+   LTEXT "August"                 -1,           200,  120,  70,   8                                                                            
+   ENTRYFIELD ""                IDE_MONTH08,    260,  120,  20,   8,  ES_MARGIN                                                                
+                                                                                                                                              
+   LTEXT "September"              -1,           200,  100,  70,   8                                                                            
+   ENTRYFIELD ""                IDE_MONTH09,    260,  100,  20,   8,  ES_MARGIN                                                                
+                                                                                                                                              
+   LTEXT "October"                -1,           300,  140,  70,   8                                                                            
+   ENTRYFIELD ""                IDE_MONTH10,    360,  140,  20,   8,  ES_MARGIN                                                                
+
+   LTEXT "November"               -1,           300,  120,  70,   8                                                                             
+   ENTRYFIELD ""                IDE_MONTH11,    360,  120,  20,   8,  ES_MARGIN                                                                 
+
+   LTEXT "December"               -1,           300,  100,  70,   8                                                                             
+   ENTRYFIELD ""                IDE_MONTH12,    360,  100,  20,   8,  ES_MARGIN                                                                 
+                                                                                                                                              
+   LTEXT "DDE MESSAGE MONITOR"    -1,            10,   60, 380,   8  PP_SPYWINDOW                                         
+   MLE    "",                   MLE_SPYWINDOW,   10,   10, 230,  45, MLS_VSCROLL | MLS_HSCROLL | MLS_IGNORETAB | WS_GROUP       
+                                                                                                                                              
+   DEFPUSHBUTTON "~OK"           DID_OK,         270, 10,  50,  16,  WS_GROUP                                                                    
+   PUSHBUTTON    "~Cancel"       DID_CANCEL,     330, 10,  50,  16,                                                                      
+  }                                                                                                                                              
+}                                                                                                                                                  
+                                                                                                                                                   
+

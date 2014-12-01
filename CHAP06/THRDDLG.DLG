@@ -1,0 +1,61 @@
+// ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+// บ  FILENAME:      THRDDLG.DLG                                       mm/dd/yy    บ
+// บ                                                                               บ
+// บ  DESCRIPTION:   Dialog Templates for THREADS/Chapter 06 Sample Program        บ
+// บ                                                                               บ
+// บ  NOTES:         This program demonstrates several methods for implmenting     บ
+// บ                 long running operations in PM applications.                   บ
+// บ                                                                               บ
+// บ  PROGRAMMER:    Uri Joseph Stern and James Stan Morrow                        บ
+// บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ
+// บ                                                                               บ
+// บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ
+// บ                                                                               บ
+// ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+
+#include "threads.h"
+#ifndef OS2_INCLUDED
+   #include <os2.h>
+#endif
+
+// --------------------------------------------------------------------------
+// Define the template for the progress indicator dialog.
+// --------------------------------------------------------------------------
+DLGINCLUDE 1 "threads.h"
+
+
+// --------------------------------------------------------------------------
+// Define the Product Information Bitmap
+// --------------------------------------------------------------------------
+BITMAP   IDB_PRODINFO "prodinfo.bmp"            
+
+
+DLGTEMPLATE PROGRESS_ID LOADONCALL MOVEABLE DISCARDABLE
+{
+ DIALOG  "Initializing", PROGRESS_ID, 42, 16, 271, 69, WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR        
+ {
+     SLIDER          DID_PROGRESS, 56, 28, 158, 16, SLS_LEFT     | SLS_SNAPTOINCREMENT |
+                                                    SLS_READONLY | SLS_RIBBONSTRIP     | WS_GROUP
+                                                    CTLDATA 12, 0, 101, 0, 0, 0
+     CTEXT           "This is a long file name", DID_FILENAME, 2, 53, 267, 8, DT_VCENTER       
+     DEFPUSHBUTTON   "OK", DID_OK, 111, 4, 40, 14
+ }
+}
+
+// --------------------------------------------------------------------------
+// Define the template for the product information dialog.
+// --------------------------------------------------------------------------
+DLGTEMPLATE ID_PRODINFO LOADONCALL MOVEABLE DISCARDABLE
+{
+ DIALOG  "THREADS - Product Information", ID_PRODINFO, 75, 75, 275, 130,,FCF_TITLEBAR | FCF_SYSMENU
+ {
+  CONTROL         IDB_PRODINFO, IDB_PRODINFO, 20, 90, 21, 21, WC_STATIC, SS_BITMAP | WS_GROUP | WS_VISIBLE
+  LTEXT          "THREADS",                                                     -1   85,  90, 150,  25 PP_PROGTITLE
+  CTEXT           "OS/2 Warp Presentation Manager for Power Programmers",       -1,   7,  65, 255,  8
+  CTEXT           "Chapter 6 Sample Program",                                   -1,   7,  55, 255,  8
+  CTEXT           "by Uri J. Stern and James S. Morrow",                        -1,   7,  45, 255,  8
+  DEFPUSHBUTTON   "~OK"                                                     DID_OK, 115,   8,  45, 16, WS_GROUP
+ }
+}
+
+

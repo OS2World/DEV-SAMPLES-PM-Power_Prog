@@ -1,0 +1,108 @@
+#  ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+#  บ  FILENAME:      MAKEFILE                                         mm/dd/yy     บ
+#  บ                                                                               บ
+#  บ  DESCRIPTION:   Build Script for THREADS/Chapter 06 Sample Program            บ
+#  บ                                                                               บ
+#  บ  NOTES:         This program demonstartes the use of Dynamic Data Exchange.   บ
+#  บ                                                                               บ
+#  บ  PROGRAMMER:    Uri Joseph Stern and James Stan Morrow                        บ
+#  บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ
+#  บ                                                                               บ
+#  บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ
+#  บ                                                                               บ
+#  ฬอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออน                
+#  บ                                                                               บ                
+#  บ                            Compiler Options                                   บ                
+#  ฬอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออน                
+#  บ                                                                               บ
+#  บ  /C      Compile only, do not link                                            บ                
+#  บ  /Q      Do NOT display Compiler Logo Information (Who needs it??)            บ                
+#  บ  /Ss     Allow Double-Slash (//) Comments                                     บ                
+#  บ  /Ti     Generate debug information                                           บ                
+#  บ  /Gm     Link with the Multi-Threaded Library                                 บ                
+#  บ  /W3     Compile with Warning Level 3 Invoked                                 บ                
+#  บฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤบ
+#  บ  /O+     Optimize Code                                                        บ                
+#  บ  /Ti-    Do NOT generate debug information                                    บ                
+#  บ  /Gs-    Do NOT remove Stack Probes                                           บ                
+#  บ  /Sa     Strict ANSI Conformance                                              บ                
+#  บ  /Ge-    Build a DLL                                                          บ                
+#  ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ                
+
+# --------------------------------------------------------------------------      
+# Define the compiler and compiler flags to be used.                              
+# --------------------------------------------------------------------------      
+COMPILER = ICC                                                          
+CFLAGS   = /C /Q /Ss /Ti /Gm /W3              
+
+# --------------------------------------------------------------------------
+# Define source file types processed by this file.
+# --------------------------------------------------------------------------
+.SUFFIXES: .c .rc .ipf
+
+# --------------------------------------------------------------------------          
+# Define the object files that will be built by the compile.                                 
+# --------------------------------------------------------------------------          
+OBJECT1 = threads.obj               
+COMMON  = shcommon.obj                   
+
+EXECUTABLE = THREADS.EXE
+RESOURCE   = THREADS.RES
+HELPFILE   = THREADS.HLP
+MAPFILE    = THREADS.MAP
+DEFFILE    = THREADS.DEF
+
+# --------------------------------------------------------------------------
+# Define main build target - which builds everything
+# --------------------------------------------------------------------------
+ALL: $(EXECUTABLE) $(RESOURCE) $(HELPFILE)
+
+# --------------------------------------------------------------------------
+# Instructions for building the program executable
+# --------------------------------------------------------------------------
+$(EXECUTABLE): $(OBJECT1) $(COMMON) $(RESOURCE) 
+   ICC.EXE @<<
+ /B" /de /nologo /m:full"
+ /Fe"$(EXECUTABLE)" /Fm"$(MAPFILE)" $(DEFFILE)
+$(OBJECT1)
+$(COMMON)
+<<
+   RC $(RESOURCE) $(EXECUTABLE)
+   MAPSYM $(MAPFILE)
+
+# --------------------------------------------------------------------------
+# Generic rule for generating a .RES file from a .RC file
+# --------------------------------------------------------------------------
+{.}.rc.res:
+   RC -r $*.RC
+
+# --------------------------------------------------------------------------
+# Generic rule for generating a .HLP file from a .IPF file
+# --------------------------------------------------------------------------
+{.}.ipf.hlp:
+   IPFC $*.ipf                 
+
+# --------------------------------------------------------------------------
+# Generic rule for generating a .OBJ file from a .C file
+# --------------------------------------------------------------------------
+{.}.c.obj:
+   $(COMPILER) $(CFLAGS) *.c
+
+# --------------------------------------------------------------------------
+# Specific rule for generating SHCOMMON.OBJ since the source is in a
+# separate directory - causing problems for current version of NMAKE
+# --------------------------------------------------------------------------
+SHCOMMON.OBJ: ..\COMMON\SHCOMMON.C SHCOMMON.H MAKEFILE
+   COPY ..\COMMON\SHCOMMON.C
+   ICC.EXE /Sa /Ss /Q /Ti /Gm /C   .\SHCOMMON.c
+   DEL SHCOMMON.C
+
+# --------------------------------------------------------------------------
+# Define dependencies for the applications build targets
+# --------------------------------------------------------------------------
+$(RESOURCE):  threads.rc threads.h thrddlg.dlg threads.ico                        
+
+$(HELPFILE):  threads.ipf                
+
+$(OBJECT1):   threads.c threads.h shcommon.h                
+

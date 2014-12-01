@@ -1,0 +1,26 @@
+;ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป                  
+;บ  FILENAME:      PRINTIT.DEF                                      mm/dd/yy     บ                  
+;บ                                                                               บ                  
+;บ  DESCRIPTION:   Module Definition File                                        บ                  
+;บ                                                                               บ                  
+;บ  NOTES:         None                                                          บ                  
+;บ                                                                               บ                  
+;บ  PROGRAMMER:    Uri Joseph Stern and James Stan Morrow                        บ                  
+;บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ                  
+;บ                                                                               บ                  
+;บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ                  
+;บ                                                                               บ                  
+;ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ                  
+
+NAME        PRINTIT WINDOWAPI
+
+DESCRIPTION 'PRINTIT - Chapter 16 Printing Sample Program'
+
+STUB        'OS2STUB.EXE'
+
+CODE        MOVEABLE
+DATA        MOVEABLE MULTIPLE
+
+HEAPSIZE    16384        
+STACKSIZE   16384        
+

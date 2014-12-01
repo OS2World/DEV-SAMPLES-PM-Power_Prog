@@ -1,0 +1,24 @@
+; ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+; บ  FILENAME:      CLKDRAW.DEF                                        mm/dd/yy   บ
+; บ                                                                               บ
+; บ  DESCRIPTION:   Module Definition File                                        บ
+; บ                                                                               บ
+; บ  NOTES:         This file contains all of the module definitions which        บ
+; บ                 include the stacksize, heapsize, imports and exports defined. บ
+; บ                                                                               บ
+; บ  PROGRAMMER:    Uri Joseph Stern and James Stan Morrow                        บ
+; บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ
+; บ                                                                               บ
+; บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ
+; บ                                                                               บ
+; ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+
+NAME         Clkdraw WINDOWAPI
+DESCRIPTION  'Chapter 04 - Click Draw Sample Program'
+
+CODE         MOVEABLE
+DATA         MOVEABLE MULTIPLE
+
+STACKSIZE    8192
+HEAPSIZE     8192
+

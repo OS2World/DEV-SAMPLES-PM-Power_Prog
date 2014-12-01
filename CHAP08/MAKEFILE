@@ -1,0 +1,87 @@
+#  ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+#  บ  FILENAME:      MAKEFILE                                         mm/dd/yy     บ
+#  บ                                                                               บ
+#  บ  DESCRIPTION:   Build Script for PMEDIT/Chapter 08 Sample Program             บ
+#  บ                                                                               บ
+#  บ  NOTES:         Instructions for building the program.                        บ
+#  บ                                                                               บ
+#  บ  PROGRAMMER:    Uri Joseph Stern and James Stan Morrow                        บ
+#  บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ
+#  บ                                                                               บ
+#  บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ
+#  บ                                                                               บ
+#  ฬอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออน                
+#  บ                                                                               บ                
+#  บ                            Compiler Options                                   บ                
+#  ฬอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออน                
+#  บ                                                                               บ
+#  บ  /C      Compile only, do not link                                            บ                
+#  บ  /Q      Do NOT display Compiler Logo Information (Who needs it??)            บ                
+#  บ  /Ss     Allow Double-Slash (//) Comments                                     บ                
+#  บ  /Ti     Generate debug information                                           บ                
+#  บ  /Gm     Link with the Multi-Threaded Library                                 บ                
+#  บ  /W3     Compile with Warning Level 3 Invoked                                 บ                
+#  บฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤบ
+#  บ  /O+     Optimize Code                                                        บ                
+#  บ  /Ti-    Do NOT generate debug information                                    บ                
+#  บ  /Gs-    Do NOT remove Stack Probes                                           บ                
+#  บ  /Sa     Strict ANSI Conformance                                              บ                
+#  บ  /Ge-    Build a DLL                                                          บ                
+#  ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ                
+
+# --------------------------------------------------------------------------      
+# Define the compiler and compiler flags to be used.                              
+# --------------------------------------------------------------------------      
+COMPILER = ICC                                                          
+CFLAGS   = /C /Q /Ss /Ti- /O+ /Gm /W3              
+
+# --------------------------------------------------------------------------
+# Define source file types processed by this file.
+# --------------------------------------------------------------------------
+.SUFFIXES: .c .rc .ipf
+
+# --------------------------------------------------------------------------            
+# Define the object files that will be built by the compile.                            
+# --------------------------------------------------------------------------            
+OBJECT1 = pmedit.obj                                                                      
+OBJECT2 = file.obj                                                                    
+OBJECT3 = update.obj                                                                    
+OBJECT4 = pickfont.obj                                                                  
+COMMON  = shcommon.obj                                                                  
+                                                                                        
+EXECUTABLE = PMEDIT.EXE                                                                 
+RESOURCE   = PMEDIT.RES                                                                 
+MAPFILE    = PMEDIT.MAP                                                                 
+DEFFILE    = PMEDIT.DEF                                                                 
+
+
+ALL: $(EXECUTABLE) $(RESOURCE)                                                                        
+
+PMEDIT.EXE:  $(OBJECT1) $(OBJECT2) $(OBJECT3) $(OBJECT4) $(COMMON) PMEDIT.RES MAKEFILE                                 
+   ICC.EXE @<<                                                                                 
+ /B" /de /pmtype:pm /nologo /m:full"                                                           
+ /Fe"PMEDIT.EXE"                                                                                 
+$(OBJECT1)                                                                                      
+$(OBJECT2)                                                                                       
+$(OBJECT3)                                                                                       
+$(OBJECT4)                                                                                       
+$(COMMON)                                                                                   
+<<                                                                                             
+   RC PMEDIT.RES PMEDIT.EXE                                                                        
+                                                                                               
+.rc.res:                                                                                       
+   RC -r $*.RC                                                                               
+                                                                                               
+.c.obj:                                                                                        
+   ICC.EXE /C /Q /Ss /Ti /Gm /W3 $*.c                                                     
+                                                                                               
+$(RESOURCE): PMEDIT.RC PMEDIT.H PMEDIT.ICO MAKEFILE                              
+$(OBJECT1):  PMEDIT.C PMEDIT.H PMEDIT.FNC MAKEFILE                               
+$(OBJECT2):  FILE.C PMEDIT.H PMEDIT.FNC MAKEFILE                                                     
+$(OBJECT3):  UPDATE.C PMEDIT.H MAKEFILE
+$(OBJECT4):  PICKFONT.C MAKEFILE
+SHCOMMON.OBJ: ..\COMMON\SHCOMMON.C SHCOMMON.H MAKEFILE                                         
+   COPY ..\COMMON\SHCOMMON.C                                                                   
+   ICC.EXE /Ss /Q /Ti /Gm /C   .\SHCOMMON.c                                                    
+   DEL SHCOMMON.C                                                                              
+

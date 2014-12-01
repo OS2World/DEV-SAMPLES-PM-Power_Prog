@@ -1,0 +1,110 @@
+#  ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+#  บ  FILENAME:      MAKEFILE                                         mm/dd/yy     บ
+#  บ                                                                               บ
+#  บ  DESCRIPTION:   Build Script for SHOWOFF/Chapter 15 Sample Program            บ
+#  บ                                                                               บ
+#  บ  NOTES:         Instructions for building the program.                        บ
+#  บ                                                                               บ
+#  บ  PROGRAMMER:    Uri Joseph Stern and James Stan Morrow                        บ
+#  บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ
+#  บ                                                                               บ
+#  บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ
+#  บ                                                                               บ
+#  ฬอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออน
+#  บ                                                                               บ
+#  บ                            Compiler Options                                   บ
+#  ฬอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออน
+#  บ                                                                               บ
+#  บ  /C      Compile only, do not link                                            บ
+#  บ  /Q      Do NOT display Compiler Logo Information (Who needs it??)            บ
+#  บ  /Ss     Allow Double-Slash (//) Comments                                     บ
+#  บ  /Ti     Generate debug information                                           บ
+#  บ  /Gm     Link with the Multi-Threaded Library                                 บ
+#  บ  /W3     Compile with Warning Level 3 Invoked                                 บ
+#  บฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤบ
+#  บ  /O+     Optimize Code                                                        บ
+#  บ  /Ti-    Do NOT generate debug information                                    บ
+#  บ  /Gs-    Do NOT remove Stack Probes                                           บ
+#  บ  /Sa     Strict ANSI Conformance                                              บ
+#  บ  /Ge-    Build a DLL                                                          บ
+#  ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+
+#  --------------------------------------------------------------------------
+#  Define source file types to consider
+#  --------------------------------------------------------------------------
+.SUFFIXES: .c .rc .ipf
+
+# --------------------------------------------------------------------------          
+# Define the object files that will be built by the compile.                          
+# --------------------------------------------------------------------------          
+OBJECT1 = showoff.obj                      
+OBJECT2 = shdskbmp.obj                     
+OBJECT3 = options.obj                      
+OBJECT4 = prevpres.obj                     
+OBJECT5 = clipbrd.obj                      
+OBJECT6 = present.obj
+OBJECT7 = presdlg.obj
+COMMON  = shcommon.obj
+
+EXECUTABLE = SHOWOFF.EXE            
+RESOURCE   = SHOWOFF.RES            
+HELPFILE   = SHOWOFF.HLP            
+MAPFILE    = SHOWOFF.MAP            
+DEFFILE    = SHOWOFF.DEF            
+
+#  --------------------------------------------------------------------------
+#  Target for building all components of the application
+#  --------------------------------------------------------------------------
+ALL: $(EXECUTABLE) $(HELPFILE) 
+
+# --------------------------------------------------------------------------           
+# Instructions for building the program executable                                     
+# --------------------------------------------------------------------------           
+$(EXECUTABLE): $(OBJECT1) $(OBJECT2) $(OBJECT3) $(OBJECT4) $(OBJECT5) $(OBJECT6) $(OBJECT7) $(COMMON) $(RESOURCE)                  
+   ICC.EXE @<<                                                                         
+ /B" /de /nologo /m:full"                                                              
+ /Fe"$(EXECUTABLE)" /Fm"$(MAPFILE)" $(DEFFILE)                                         
+$(OBJECT1)                                                                             
+$(OBJECT2)                                                                             
+$(OBJECT3)                                                                             
+$(OBJECT4)                                                                             
+$(OBJECT5)                                                                             
+$(OBJECT6)                                                                             
+$(OBJECT7)                                                                             
+$(COMMON)
+<<                                                                                     
+   rc -r showoff.rc 
+   RC $(RESOURCE) $(EXECUTABLE)                               
+   MAPSYM $(MAPFILE)                       
+
+#  --------------------------------------------------------------------------
+#  generic build rules
+#  --------------------------------------------------------------------------
+{.}.rc.res:                     
+   RC -r $*.RC                  
+
+# --------------------------------------------------------------------
+# Generic rule for generating a .HLP file from a .IPF file            
+# --------------------------------------------------------------------
+{.}.ipf.hlp:                                                          
+   ICC.EXE /Pe+ /Pc+ $*.IPF                                         
+   IPFC $*.I                                                        
+   DEL $*.I                                                         
+
+{.}.c.obj:
+   ICC.EXE /Ss /Q /Ti /Gm /C $*.c
+
+# --------------------------------------------------------------------------      
+# Define dependencies for the applications build targets                          
+# --------------------------------------------------------------------------      
+$(RESOURCE): showoff.h sherror.h showoff.rc showoff.ico showoff.fnc prodinfo.bmp                                                    
+$(HELPFILE): showoff.ipf showoff.h                                  
+$(OBJECT1):  showoff.c showoff.h sherror.h structs.h showoff.fnc                                                        
+$(OBJECT2):  shdskbmp.c showoff.h showoff.fnc                                                
+$(OBJECT3):  options.c showoff.h showoff.fnc                                                  
+$(OBJECT4):  prevpres.c showoff.h showoff.fnc                                                
+$(OBJECT5):  clipbrd.c showoff.h                                                              
+$(OBJECT6):  present.c showoff.h structs.h showoff.fnc
+$(OBJECT7):  presdlg.c showoff.h showoff.fnc                                                
+$(COMMON):   shcommon.c shcommon.h 
+

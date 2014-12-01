@@ -1,0 +1,82 @@
+// ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+// บ  FILENAME:      THREADS.RC                                        mm/dd/yy    บ
+// บ                                                                               บ
+// บ  DESCRIPTION:   Resource Script for THREADS/Chapter 06 Sample Program         บ
+// บ                                                                               บ
+// บ  NOTES:         This program demonstrates several methods for implementing    บ
+// บ                 long running operations in PM applications.                   บ
+// บ                                                                               บ
+// บ  PROGRAMMER:    Uri Joseph Stern and James Stan Morrow                        บ
+// บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ
+// บ                                                                               บ
+// บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ
+// บ                                                                               บ
+// ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+#include "threads.h"
+
+// --------------------------------------------------------------------------
+// ICON used by the program
+// --------------------------------------------------------------------------
+ICON APPLICATION_ID THREADS.ICO
+
+// --------------------------------------------------------------------------
+// Define menu for the primary application window
+// --------------------------------------------------------------------------
+MENU APPLICATION_ID
+{
+   SUBMENU     "~File", MID_FILE
+   {
+      MENUITEM "~Initialize...", MID_FILEINITIALIZE
+      MENUITEM "~Delete...",     MID_FILEDELETE
+      MENUITEM SEPARATOR
+      MENUITEM "E~xit",          MID_FILEEXIT
+   }
+   SUBMENU     "~Mode", MID_MODE
+   {
+      MENUITEM "~Single thread", MID_MODESINGLE,,MIA_CHECKED
+      MENUITEM "~Peek loop",     MID_MODEPEEK
+      MENUITEM "~Multithread",   MID_MODEMULTI
+      MENUITEM "~Object window", MID_MODEOBJ
+   }
+   SUBMENU     "~Help", MID_HELP
+   {
+      MENUITEM "~General help", MID_HELPGENERAL
+      MENUITEM "~Using help",   MID_HELPUSING
+      MENUITEM SEPARATOR
+      MENUITEM "~Product Information", MID_HELPPRODINFO
+   }
+}
+
+// --------------------------------------------------------------------------
+// Define the template for the applications dialog boxes
+// --------------------------------------------------------------------------
+rcinclude thrddlg.dlg
+
+// --------------------------------------------------------------------------
+// Define the HELP TABLE for the application
+// --------------------------------------------------------------------------
+HELPTABLE APPLICATION_ID
+{
+   HELPITEM    APPLICATION_ID,   APPLICATION_ID,   HID_GENHELP
+}
+
+// --------------------------------------------------------------------------
+// Define the HELP SUBTABLE for the application window
+// --------------------------------------------------------------------------
+HELPSUBTABLE APPLICATION_ID
+{
+   HELPSUBITEM MID_FILE,            HID_FILE
+   HELPSUBITEM MID_FILEINITIALIZE,  HID_FILEINITIALIZE
+   HELPSUBITEM MID_FILEDELETE,      HID_FILEDELETE
+   HELPSUBITEM MID_FILEEXIT,        HID_FILEEXIT
+   HELPSUBITEM MID_MODE,            HID_MODE
+   HELPSUBITEM MID_MODESINGLE,      HID_MODESINGLE
+   HELPSUBITEM MID_MODEPEEK,        HID_MODEPEEK
+   HELPSUBITEM MID_MODEMULTI,       HID_MODEMULT
+   HELPSUBITEM MID_MODEOBJ,         HID_MODEOBJ
+   HELPSUBITEM MID_HELP,            HID_HELP
+   HELPSUBITEM MID_HELPGENERAL,     HID_HELPGENERAL
+   HELPSUBITEM MID_HELPUSING,       HID_HELPUSING
+   HELPSUBITEM MID_HELPPRODINFO,    HID_HELPPRODINFO
+}
+

@@ -1,0 +1,185 @@
+// ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป   
+// บ  FILENAME:      PMSCREEN.RC                                      mm/dd/yy     บ   
+// บ                                                                               บ   
+// บ  DESCRIPTION:   Resource Script File for PMSCREEN executable                  บ   
+// บ                                                                               บ   
+// บ  NOTES:         This file contains all of the resource information for the    บ   
+// บ                 PMSCREEN executable including the dialog templates, menus,    บ   
+// บ                 accelerators and stringtables.                                บ   
+// บ                                                                               บ   
+// บ  PROGRAMMER:    Uri Joseph Stern                                              บ   
+// บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ   
+// บ                                                                               บ   
+// บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ   
+// บ                                                                               บ   
+// ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ   
+
+#include <os2.h>
+#include "pmscreen.h"
+
+// --------------------------------------------------------------------------                    
+// Set the Presentation Parameters used by the product information                               
+// dialog box.                                                                                   
+// --------------------------------------------------------------------------                    
+#define PP_PROGTITLE PRESPARAMS PP_FOREGROUNDCOLORINDEX, CLR_RED PRESPARAMS PP_FONTNAMESIZE,     "28.Tms Rmn"
+#define PP_MONOFONT  PRESPARAMS PP_FOREGROUNDCOLORINDEX, CLR_DARKRED PRESPARAMS PP_FONTNAMESIZE, "8.Courier"  
+#define PP_BIGMONO   PRESPARAMS PP_FOREGROUNDCOLORINDEX, CLR_BLUE PRESPARAMS PP_FONTNAMESIZE,    "10.Courier"   
+#define PP_SMALLMONO PRESPARAMS PP_FOREGROUNDCOLORINDEX, CLR_RED PRESPARAMS PP_FONTNAMESIZE,     "8.Courier"   
+#define PP_RED       PRESPARAMS PP_FOREGROUNDCOLORINDEX, CLR_RED
+
+// --------------------------------------------------------------------------                
+// Define the icon, bitmap and pointer resources used by the application                     
+// --------------------------------------------------------------------------                
+ICON    ID_FRAME      PRELOAD pmscreen.ico
+BITMAP  IDB_PRODINFO  PRELOAD prodinfo.bmp             
+BITMAP  IDB_COVER     PRELOAD cover.bmp
+
+// --------------------------------------------------------------------------                 
+// Define our accelerator table                                                               
+// --------------------------------------------------------------------------                 
+ACCELTABLE ID_FRAME PRELOAD
+{
+  VK_F3,     IDM_EXIT,        VIRTUALKEY
+  VK_F5,     IDM_DRAWBMP,     VIRTUALKEY 
+  VK_F6,     IDM_BMPRES,      VIRTUALKEY
+  VK_F7,     IDM_HKREBOOT,    VIRTUALKEY   
+  VK_DELETE, IDM_EDITCLEAR,   VIRTUALKEY
+  VK_DELETE, IDM_EDITCUT,     VIRTUALKEY, SHIFT             
+  VK_INSERT, IDM_EDITCOPY,    VIRTUALKEY, CONTROL           
+  VK_INSERT, IDM_EDITPASTE,   VIRTUALKEY, SHIFT             
+}
+
+// --------------------------------------------------------------------------                 
+// Define our action bar menu                                                                 
+// --------------------------------------------------------------------------                 
+MENU ID_FRAME
+{
+ SUBMENU "~Options",                               ID_FILEMENU
+ {
+  MENUITEM "~Capture Active Window\tPrint Screen", IDM_CAPTURE
+  MENUITEM SEPARATOR
+  MENUITEM "Draw ~Bitmap Flags...\tF5",            IDM_DRAWBMP              
+  MENUITEM "View Bitmap ~Information...\tF6",      IDM_BMPRES
+  MENUITEM SEPARATOR
+  MENUITEM "Toggle Ctrl-Alt-Del Hotkey...\tF7",    IDM_HKREBOOT
+  MENUITEM SEPARATOR
+  MENUITEM "E~xit\tF3",                            IDM_EXIT
+ }
+
+ SUBMENU "~Edit",                                  ID_EDITMENU              
+ {                                                                       
+  MENUITEM "Cu~t\tShift+Delete",                   IDM_EDITCUT         
+  MENUITEM "~Copy\tCtrl+Insert",                   IDM_EDITCOPY        
+  MENUITEM "~Paste\tShift+Insert",                 IDM_EDITPASTE          
+  MENUITEM SEPARATOR                           
+  MENUITEM "Cl~ear\tDelete",                       IDM_EDITCLEAR          
+ }                                                                       
+                                               
+ SUBMENU "~Help",                                  ID_HELPMENU, MIS_HELP               
+ {                                                                                   
+  MENUITEM "~General help",                        IDM_HELPGEN                  
+  MENUITEM "~Keys help",                           IDM_HELPKEYS                 
+  MENUITEM SEPARATOR                                                                  
+  MENUITEM "~Product Information",                 IDM_PRODINFO                    
+  MENUITEM SEPARATOR                                                                  
+  MENUITEM "~A Word of Thanks...",                 IDM_THANKS
+ }                                                                              
+}
+
+
+
+// --------------------------------------------------------------------------                       
+// The Toggle Reboot Hotkey Dialog Template                                                                
+// --------------------------------------------------------------------------                       
+DLGTEMPLATE IDD_HOTKEY
+{
+ DIALOG "PMSCREEN - Toggle Reboot HotKey", 0, 32, 32, 250, 100,, FCF_DLGBORDER | FCF_SYSMENU | FCF_TITLEBAR
+  {
+   LTEXT "This dialog box allows you to toggle the reboot"     -1,   15, 75, 220,  8 PP_RED
+   LTEXT "hotkey.  Use the pushbutton below to either enable"  -1,   15, 65, 220,  8 PP_RED 
+   LTEXT "or disable the Ctrl-Alt-Del key sequence."           -1,   15, 55, 220,  8 PP_RED 
+
+   DEFPUSHBUTTON "~Toggle Keys"                       DID_DISABLE,   60,  8,  60, 16,  WS_GROUP
+   PUSHBUTTON    "~Cancel"                            DID_CANCEL,   130,  8,  60, 16
+  }
+}
+
+// --------------------------------------------------------------------------                       
+// The Product Information Dialog Template                                                                   
+// --------------------------------------------------------------------------                       
+DLGTEMPLATE IDD_PRODINFO LOADONCALL MOVEABLE DISCARDABLE
+{
+ DIALOG  "PMSCREEN - Product Information", IDD_PRODINFO, 75, 75, 275, 130,
+         FS_NOBYTEALIGN | WS_VISIBLE, FCF_TITLEBAR | FCF_SYSMENU
+ {
+     CONTROL         IDB_PRODINFO, IDB_PRODINFO, 20, 90, 21, 21, WC_STATIC, SS_BITMAP | WS_GROUP | WS_VISIBLE
+     LTEXT           "PMSCREEN",                                                   -1   85,  90, 150,  25 PP_PROGTITLE
+     CTEXT           "OS/2 Warp Presentation Manager for Power Programmers",       -1,   7,  65, 255,  8
+     CTEXT           "Chapter 17 Sample Program",                                  -1,   7,  55, 255,  8
+     CTEXT           "by Uri J. Stern and James S. Morrow",                        -1,   7,  45, 255,  8
+     DEFPUSHBUTTON   "~OK"                                                     DID_OK, 115,   8,  45, 16, WS_GROUP
+
+ }
+}
+
+// --------------------------------------------------------------------------                                       
+// The Change Draw Bitmap Flags Dialog Template                                                                            
+// --------------------------------------------------------------------------                                       
+DLGTEMPLATE IDD_DRAWBMP PRELOAD MOVEABLE DISCARDABLE                                                               
+{                                                                                                                   
+ DIALOG  "PMSCREEN - Draw Bitmap Flags", IDD_DRAWBMP, 75, 75, 275, 150,, FCF_TITLEBAR | FCF_SYSMENU | FCF_DLGBORDER  
+  {                                                                                                                 
+   GROUPBOX      "Draw Bitmap Flags"           -1                      10,   70,  255,  60                          
+                                                                                                                    
+   AUTORADIOBUTTON " Normal   - DBM_NORMAL"    DBM_NORMAL,             80,  105,   140,   8,  PP_MONOFONT WS_GROUP               
+   AUTORADIOBUTTON " Invert   - DBM_INVERT"    DBM_INVERT,             80,   95,   140,   8,  PP_MONOFONT                       
+   AUTORADIOBUTTON " Stretch  - DBM_STRETCH"   DBM_STRETCH,            80,   85,   140,   8,  PP_MONOFONT                               
+                                                                                                                    
+   DEFPUSHBUTTON "~OK"                  DID_OK,                        40,    8,   50,  16,  WS_GROUP               
+   PUSHBUTTON    "~Cancel"              DID_CANCEL,                   110,    8,   50,  16                          
+   PUSHBUTTON    "~Help"                DID_HELP,                     180,    8,   50,  16                          
+  }                                                                                                                 
+}                                                                                                                   
+
+// --------------------------------------------------------------------------
+// The Display Bitmap Resolution Dialog
+// --------------------------------------------------------------------------
+DLGTEMPLATE IDD_BMPRES
+{
+ DIALOG "PMSCREEN - View Bitmap Information", IDD_BMPRES, 32, 32, 250, 100,, FCF_DLGBORDER | FCF_SYSMENU | FCF_TITLEBAR
+  {
+   LTEXT ""                           ID_WIDTH,      15,  80, 150,  8 PP_MONOFONT
+   LTEXT ""                           ID_HEIGHT,     15,  70, 150,  8 PP_MONOFONT
+   LTEXT ""                           ID_CPLANE,     15,  60, 150,  8 PP_MONOFONT
+   LTEXT ""                           ID_BPPPEL,     15,  50, 150,  8 PP_MONOFONT
+
+   LTEXT ""                           ID_SCRWIDTH,  130,  70, 110,  8 PP_MONOFONT
+   LTEXT ""                           ID_SCRHEIGHT, 130,  60, 110,  8 PP_MONOFONT       
+   LTEXT ""                           ID_NUMCOLORS, 130,  50, 115,  8 PP_MONOFONT       
+
+   DEFPUSHBUTTON "~OK"                DID_OK,       100,   8,  50, 16,  WS_GROUP
+  }
+}
+
+// --------------------------------------------------------------------------                       
+// The Thank You Dialog Template                                                               
+// --------------------------------------------------------------------------                       
+DLGTEMPLATE IDD_THANKS
+{
+ DIALOG "", IDD_THANKS, 32, 32, 400, 225,, FCF_DLGBORDER 
+  {
+   CONTROL  IDB_COVER, IDB_COVER, 10, 80, 0, 0, WC_STATIC, SS_BITMAP | WS_GROUP | WS_VISIBLE
+
+   LTEXT         "Thank You!"                           -1,      200, 190, 120,  25  PP_PROGTITLE
+   LTEXT         "This is the last sample program..."   -1,      175, 150, 220,   8  PP_SMALLMONO
+   LTEXT         "We hope you learned a thing or two"   -1,      175, 135, 220,   8  PP_SMALLMONO
+   LTEXT         "and had some fun along the way."      -1,      175, 120, 220,   8  PP_SMALLMONO
+
+   LTEXT "We would like to express our sincere thanks to everyone"     -1,  20,  60, 350,   8  PP_BIGMONO
+   LTEXT "who purchased this book.  The battle has not yet been lost." -1,  20,  50, 360,   8  PP_BIGMONO
+   LTEXT "OS/2 application development is the key to winning."         -1,  20,  40, 350,   8  PP_BIGMONO
+
+   DEFPUSHBUTTON "~OK"                               DID_OK,   175,   8,  50,  16, WS_GROUP
+  }
+}
+

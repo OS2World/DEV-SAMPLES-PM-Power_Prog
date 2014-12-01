@@ -1,0 +1,252 @@
+// ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+// บ  FILENAME:      HELPME.RC                                        mm/dd/yy     บ
+// บ                                                                               บ
+// บ  DESCRIPTION:   Resource Script for HELPME/Chapter 05 Sample Program          บ
+// บ                                                                               บ
+// บ  NOTES:         This program demonstartes the use of the OS/2 IPF facility.   บ
+// บ                                                                               บ
+// บ  PROGRAMMER:    Uri Joseph Stern and James Stan Morrow                        บ
+// บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ
+// บ                                                                               บ
+// บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ
+// บ                                                                               บ
+// ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+
+#include "helpme.h"
+
+// --------------------------------------------------------------------------
+// ICONS used by the program
+// --------------------------------------------------------------------------
+ICON RID_HELPME      HELPME.ICO
+ICON RID_SAMPLECHLD  HELPME.ICO
+ICON RID_SAMPLECHLD2 HELPME.ICO
+
+// -------------------------------------------------------------------------- 
+// Define the Product Information Bitmap                                      
+// -------------------------------------------------------------------------- 
+BITMAP   IDB_PRODINFO "prodinfo.bmp"                                          
+
+// --------------------------------------------------------------------------
+// Define menu for the primary application window
+// --------------------------------------------------------------------------
+MENU RID_HELPME
+{
+   SUBMENU "File",   MID_FILE
+   {
+      MENUITEM "~New",                 MID_FILENEW
+      MENUITEM "~Open...",             MID_FILEOPEN
+      MENUITEM "~Save",                MID_FILESAVE
+      MENUITEM "Save ~as...",          MID_FILESAVEAS
+      MENUITEM SEPARATOR
+      MENUITEM "E~xit",                MID_EXIT
+   }
+   SUBMENU "Sample", MID_SAMPLE
+   {
+      MENUITEM "~Child Window",        MID_SAMPLECHLD
+      MENUITEM "~Dialog...",           MID_SAMPLEDLG
+      MENUITEM "~Message Box...",      MID_SAMPLEMSG
+      MENUITEM "~Thread",              MID_SAMPLETHD
+   }
+   SUBMENU "Help",   MID_HELP
+   {
+      MENUITEM "Help ~index",          MID_HELPINDEX
+      MENUITEM "~General help",        MID_GENHELP
+      MENUITEM "~Using help",          MID_USEHELP
+      MENUITEM "~Keys help",           MID_KEYSHELP
+      MENUITEM SEPARATOR
+      MENUITEM "~Product Information", MID_PRODINFO
+   }
+}
+
+// --------------------------------------------------------------------------
+// Define menu for the child windows
+// --------------------------------------------------------------------------
+MENU RID_SAMPLECHLD
+{
+   SUBMENU "File",   MID_FILE
+   {
+      MENUITEM "~New",                 MID_FILENEW
+      MENUITEM "~Open...",             MID_FILEOPEN
+      MENUITEM "~Save",                MID_FILESAVE
+      MENUITEM "Save ~as...",          MID_FILESAVEAS
+      MENUITEM SEPARATOR
+      MENUITEM "E~xit",                MID_EXIT
+   }
+   SUBMENU "Help",   MID_HELP
+   {
+      MENUITEM "Help ~index",          MID_HELPINDEX
+      MENUITEM "~General help",        MID_GENHELP
+      MENUITEM "~Using help",          MID_USEHELP
+      MENUITEM "~Keys help",           MID_KEYSHELP
+   }
+}
+
+// --------------------------------------------------------------------------
+// Define the menu for the second child window
+// --------------------------------------------------------------------------
+MENU RID_SAMPLECHLD2
+{
+   SUBMENU "File",   MID_FILE
+   {
+      MENUITEM "~New",                 MID_FILENEW
+      MENUITEM "~Open...",             MID_FILEOPEN
+      MENUITEM "~Save",                MID_FILESAVE
+      MENUITEM "Save ~as...",          MID_FILESAVEAS
+      MENUITEM SEPARATOR
+      MENUITEM "E~xit",                MID_EXIT
+   }
+   SUBMENU "Help",   MID_HELP
+   {
+      MENUITEM "Help ~index",          MID_HELPINDEX
+      MENUITEM "~General help",        MID_GENHELP
+      MENUITEM "~Using help",          MID_USEHELP
+      MENUITEM "~Keys help",           MID_KEYSHELP
+   }
+}
+
+// --------------------------------------------------------------------------
+// Define the template for the sample dialog box
+// --------------------------------------------------------------------------
+DLGTEMPLATE RID_SAMPLEDLG LOADONCALL MOVEABLE DISCARDABLE
+{
+    DIALOG  "Sample Dialog", RID_SAMPLEDLG, 87, 61, 176, 64, WS_VISIBLE,
+            FCF_SYSMENU | FCF_TITLEBAR
+    {
+        LTEXT           "Command:", 0, 7, 45, 50, 8
+        ENTRYFIELD      "", DID_CMD_ENTRY, 64, 46, 100, 8, ES_MARGIN | ES_COMMAND
+        LTEXT           "Parameters:", 1000, 7, 28, 50, 8
+        ENTRYFIELD      "", DID_PARAMETERS, 64, 28, 100, 8, ES_MARGIN
+        DEFPUSHBUTTON   "OK", DID_OK, 6, 4, 40, 14, WS_GROUP
+        PUSHBUTTON      "Cancel", DID_CANCEL, 49, 4, 40, 14, NOT WS_TABSTOP
+        PUSHBUTTON      "Help", DID_HELP, 92, 4, 40, 14, BS_HELP |
+                        BS_NOPOINTERFOCUS | WS_GROUP | NOT WS_TABSTOP
+    }
+}
+
+
+// --------------------------------------------------------------------------
+// Define the template for the product information dialog.
+// --------------------------------------------------------------------------
+DLGTEMPLATE RID_PRODINFO LOADONCALL MOVEABLE DISCARDABLE
+{
+ DIALOG  "HELPME - Product Information", RID_PRODINFO, 75, 75, 275, 130,,FCF_TITLEBAR | FCF_SYSMENU
+ {
+  CONTROL         IDB_PRODINFO, IDB_PRODINFO, 20, 90, 21, 21, WC_STATIC, SS_BITMAP | WS_GROUP | WS_VISIBLE
+  LTEXT          "HELPME",                                                      -1   95,  90, 150,  25 PP_PROGTITLE
+  CTEXT           "OS/2 Warp Presentation Manager for Power Programmers",       -1,   7,  65, 255,  8
+  CTEXT           "Chapter 5 Sample Program",                                   -1,   7,  55, 255,  8
+  CTEXT           "by Uri J. Stern and James S. Morrow",                        -1,   7,  45, 255,  8
+  DEFPUSHBUTTON   "~OK"                                                     DID_OK, 115,   8,  45, 16, WS_GROUP
+ }
+}
+
+// --------------------------------------------------------------------------
+// Define the help table for the application
+// --------------------------------------------------------------------------
+HELPTABLE RID_HELPME
+{
+   HELPITEM RID_HELPME,       HSTID_MAIN,          HID_MAINEXTENDED
+   HELPITEM RID_UNSUPPORTED,  HSTID_UNSUPPORTED,   HID_UNSUPPORTED
+   HELPITEM RID_FILEOPEN,     HSTID_OPEN_DLG,      HID_FILEOPENDLG
+   HELPITEM RID_FILESAVEAS,   HSTID_SAVEAS_DLG,    HID_FILESAVEASDLG
+   HELPITEM RID_SAMPLECHLD,   HSTID_SAMPLECHLD,    HID_SAMPLECHILD
+   HELPITEM RID_SAMPLEDLG,    HSTID_SAMPLEDLG,     HID_SAMPLEDLGEXT
+   HELPITEM RID_SAMPLEMSG,    HSTID_EMPTY,         HID_SAMPLEMSGGEN
+}
+
+// --------------------------------------------------------------------------
+// Define the help subtable for the primary application window
+// --------------------------------------------------------------------------
+HELPSUBTABLE HSTID_MAIN
+{
+   HELPSUBITEM MID_FILE,         HID_FILE
+   HELPSUBITEM MID_FILENEW,      HID_FILENEW
+   HELPSUBITEM MID_FILEOPEN,     HID_FILEOPEN
+   HELPSUBITEM MID_FILESAVE,     HID_FILESAVE
+   HELPSUBITEM MID_FILESAVEAS,   HID_FILESAVEAS
+   HELPSUBITEM MID_EXIT,         HID_EXIT
+   HELPSUBITEM MID_SAMPLE,       HID_SAMPLE
+   HELPSUBITEM MID_SAMPLECHLD,   HID_SAMPLECHLD
+   HELPSUBITEM MID_SAMPLEDLG,    HID_SAMPLEDLG
+   HELPSUBITEM MID_SAMPLEMSG,    HID_SAMPLEMSG
+   HELPSUBITEM MID_SAMPLETHD,    HID_SAMPLETHD
+   HELPSUBITEM MID_HELP,         HID_HELP
+   HELPSUBITEM MID_HELPINDEX,    HID_HELPINDEX
+   HELPSUBITEM MID_GENHELP,      HID_GENHELP
+   HELPSUBITEM MID_USEHELP,      HID_USEHELP
+   HELPSUBITEM MID_KEYSHELP,     HID_KEYSHELP
+   HELPSUBITEM MID_PRODINFO,     HID_ABOUT
+}
+
+// --------------------------------------------------------------------------
+// Define the help subtable for the unsupported function message box.
+// --------------------------------------------------------------------------
+HELPSUBTABLE HSTID_UNSUPPORTED
+{
+   HELPSUBITEM DID_OK,           HID_DLGOK
+}
+
+// --------------------------------------------------------------------------
+// Define the help subtable for the file open dialog box.
+// --------------------------------------------------------------------------
+HELPSUBTABLE HSTID_OPEN_DLG
+{
+   HELPSUBITEM DID_FILENAME_ED,  HID_OPEN_FILENAME
+   HELPSUBITEM DID_DRIVE_CB,     HID_OPEN_DRIVE
+   HELPSUBITEM DID_FILTER_CB,    HID_OPEN_FILTER
+   HELPSUBITEM DID_DIRECTORY_LB, HID_OPEN_DIR
+   HELPSUBITEM DID_FILES_LB,     HID_OPEN_FILES
+   HELPSUBITEM DID_OK_PB,        HID_OPEN_BUTTONS
+   HELPSUBITEM DID_CANCEL_PB,    HID_OPEN_BUTTONS
+}
+
+// --------------------------------------------------------------------------
+// Define the help subtable for the file save as dialog box.
+// --------------------------------------------------------------------------
+HELPSUBTABLE HSTID_SAVEAS_DLG
+{
+   HELPSUBITEM DID_FILENAME_ED,  HID_SAVEAS_FILENAME
+   HELPSUBITEM DID_DRIVE_CB,     HID_SAVEAS_DRIVE
+   HELPSUBITEM DID_FILTER_CB,    HID_SAVEAS_FILTER
+   HELPSUBITEM DID_DIRECTORY_LB, HID_SAVEAS_DIR
+   HELPSUBITEM DID_FILES_LB,     HID_SAVEAS_FILES
+   HELPSUBITEM DID_OK_PB,        HID_SAVEAS_BUTTONS
+   HELPSUBITEM DID_CANCEL_PB,    HID_SAVEAS_BUTTONS
+}
+
+// --------------------------------------------------------------------------
+// Define the help subtable for sample child window #1.
+// --------------------------------------------------------------------------
+HELPSUBTABLE HSTID_SAMPLECHLD
+{
+   HELPSUBITEM MID_FILE,         HID_CFILE
+   HELPSUBITEM MID_FILENEW,      HID_CFILENEW
+   HELPSUBITEM MID_FILEOPEN,     HID_CFILEOPEN
+   HELPSUBITEM MID_FILESAVE,     HID_CFILESAVE
+   HELPSUBITEM MID_FILESAVEAS,   HID_CFILESAVEAS
+   HELPSUBITEM MID_EXIT,         HID_CEXIT
+   HELPSUBITEM MID_HELP,         HID_CHELP
+   HELPSUBITEM MID_HELPINDEX,    HID_CHELPINDEX
+   HELPSUBITEM MID_GENHELP,      HID_CGENHELP
+   HELPSUBITEM MID_USEHELP,      HID_CUSEHELP
+   HELPSUBITEM MID_KEYSHELP,     HID_CKEYSHELP
+}
+
+// --------------------------------------------------------------------------
+// Define the help subtable for the sample dialog box
+// --------------------------------------------------------------------------
+HELPSUBTABLE HSTID_SAMPLEDLG
+{
+   HELPSUBITEM DID_CMD_ENTRY,    HID_CMDENTRY
+   HELPSUBITEM DID_PARAMETERS,   HID_PARAMETERS
+   HELPSUBITEM DID_CANCEL,       HID_DLGBUTTONS
+}
+
+// --------------------------------------------------------------------------
+// Define an empty help subtable for windows with no controls
+// --------------------------------------------------------------------------
+HELPSUBTABLE HSTID_EMPTY
+{
+}
+
+

@@ -1,0 +1,260 @@
+// ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป           
+// บ  FILENAME:      BUTTONS.RC                                       mm/dd/yy     บ           
+// บ                                                                               บ           
+// บ  DESCRIPTION:   Resource Script File for BUTTONS executable                   บ           
+// บ                                                                               บ           
+// บ  NOTES:         This file contains all of the resource information for the    บ           
+// บ                 BUTTONS executable including the dialog templates, menus and  บ           
+// บ                 accelerators and stringtables.                                บ           
+// บ                                                                               บ           
+// บ  PROGRAMMER:    Uri Joseph Stern and James Stan Morrow                        บ           
+// บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ           
+// บ                                                                               บ           
+// บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ           
+// บ                                                                               บ           
+// ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ           
+
+#include <os2.h>
+#include "buttons.h"
+#include "messages.h"
+
+
+// --------------------------------------------------------------------------       
+// Presentation Parameters                                                         
+// --------------------------------------------------------------------------       
+#define TEXT_COLOR PRESPARAMS PP_FOREGROUNDCOLORINDEX                              
+#define PP_PROGTITLE PRESPARAMS PP_FOREGROUNDCOLORINDEX, CLR_RED PRESPARAMS PP_FONTNAMESIZE, "28.Tms Rmn"     
+
+// --------------------------------------------------------------------------       
+// The Product Information Bitmap                                                   
+// --------------------------------------------------------------------------       
+BITMAP     IDB_PRODINFO    buttons.bmp
+
+// --------------------------------------------------------------------------       
+// These are icons used for the function buttons                                   
+// --------------------------------------------------------------------------       
+ICON       ID_MAINWND      PRELOAD buttons.ico   // Product Information
+ICON       IDI_SHUTDOWN    PRELOAD shutdown.ico  // Shutdown
+ICON       IDI_LOCKUP      PRELOAD lockup.ico    // Lockup
+ICON       IDI_VIOCMD      PRELOAD viocmd.ico    // Command Interpreter 
+
+// --------------------------------------------------------------------------       
+// These are the icons used for navigate the program list                 
+// --------------------------------------------------------------------------       
+ICON       IDI_LEFT        PRELOAD left.ico      // << Navigate Backward
+ICON       IDI_RIGHT       PRELOAD right.ico     // >> Navigate Forward
+
+// --------------------------------------------------------------------------       
+// Define an accelerator table                                                      
+// --------------------------------------------------------------------------       
+ACCELTABLE ID_MAINWND PRELOAD
+{
+  VK_F2,  IDM_ABOUT,     VIRTUALKEY
+  VK_F3,  IDM_EXIT,      VIRTUALKEY
+  VK_F5,  IDM_CMDBUTTON, VIRTUALKEY
+  VK_F6,  IDM_PROGLIST,  VIRTUALKEY 
+  VK_F7,  IDM_HIDECTLS,  VIRTUALKEY
+  VK_F8,  IDM_SAVEWIN,   VIRTUALKEY
+  VK_F10, IDM_SETUP,     VIRTUALKEY
+  VK_F11, IDM_CONFIGURE, VIRTUALKEY
+  VK_F12, IDM_COMSPEC,   VIRTUALKEY
+}
+
+// --------------------------------------------------------------------------       
+// String Table used to display messages to the user via the                        
+// DisplayMessages function in SHCOMMON
+// --------------------------------------------------------------------------       
+STRINGTABLE LOADONCALL
+{
+ INFO_NOHELP              "Help text would normally go here, but there is none."
+
+ QUESTION_SHUTDOWN         "Are you sure that you want to close all windows and active programs and shutdown your system?  Select YES to Shutdown, NO to cancel Shutdown."
+ QUESTION_SAVEWINPOS       "Do you wish to save the current window size and position?"
+ QUESTION_EXIT             "You have asked to exit BUTTONS.  Are you ready to exit now?" 
+
+ ERROR_OPENING_PROFILE     "BUTTONS was unable to load the profile information.  Please ensure that the configuration file BUTTONS.PRO exists and try again. \xA 
+                            If this is the first time you are running BUTTONS, please press the F10 key to configure the BUTTONS control panel." 
+
+ ERROR_INVALID_PROFILE     "Fatal Error:  The BUTTONS profile signature could not be found or has become corrupted.  Please ensure that BUTTONS.PRO contains valid profile information."
+ ERROR_ALREADY_RUNNING     "Fatal Error:  Program initialization has detected that a copy of BUTTONS is already running.  You cannot run multiple instances of BUTTONS."
+ ERROR_CHANGING_ICON       "Error:  Unable to change the icon associated with this executable.  Please ensure that the program is not currently running. \
+                            If the application is currently running, please shutdown the application and try changing the icon again."
+ ERROR_STARTING_PROGRAM    "BUTTONS was unable to start the specified application.  Please check to ensure you have specified the correct path and filename for the program."
+ ERROR_PROGRAM_NOT_RUNNING "The program that you have selected to end is not currently running."
+ ERROR_WRITING_PROFILE     "Error Writing Profile Information"
+ ERROR_POPULATING_LISTBOX  "Error Inserting Items Into the Listbox" 
+}
+
+// --------------------------------------------------------------------------       
+// Define an Action Bar Menu                                                     
+// --------------------------------------------------------------------------       
+MENU ID_MAINWND
+{
+ SUBMENU "~Options",                        ID_OPTIONSMENU
+ {
+  MENUITEM "Run Utility Programs...\tF5",          IDM_CMDBUTTON 
+  MENUITEM "View Program List...\tF6",             IDM_PROGLIST
+  MENUITEM "Toggle Frame Controls\tF7",            IDM_HIDECTLS
+  MENUITEM "Save Window Size and Position\tF8",    IDM_SAVEWIN
+  MENUITEM SEPARATOR
+  MENUITEM "Exit BUTTONS for OS/2\tF3",            IDM_EXIT
+ }
+
+ SUBMENU "~Configure",                      ID_CONFIGMENU
+ {                                                         
+  MENUITEM "Program Buttons...\tF10",               IDM_SETUP
+  MENUITEM "User Preferences...\tF11",              IDM_CONFIGURE
+  MENUITEM "Command Interpreter...\tF12",           IDM_COMSPEC
+ }
+
+ SUBMENU "~Help",                           ID_HELPMENU, MIS_HELP
+ {
+  MENUITEM "~General help",                        IDM_HELPGEN
+  MENUITEM "~Keys help",                           IDM_HELPKEYS
+  MENUITEM SEPARATOR
+  MENUITEM "~Product Information",                 IDM_ABOUT
+ }
+}
+
+
+// --------------------------------------------------------------------------       
+// Product Information Dialog Box                                                 
+// --------------------------------------------------------------------------       
+DLGTEMPLATE IDD_ABOUT LOADONCALL MOVEABLE DISCARDABLE
+{
+    DIALOG  "BUTTONS - Product Information", IDD_ABOUT, 75, 75, 275, 130,
+            FS_NOBYTEALIGN | WS_VISIBLE, FCF_TITLEBAR | FCF_SYSMENU
+    {
+        CONTROL         IDB_PRODINFO, IDB_PRODINFO, 20, 90, 21, 21, WC_STATIC, SS_BITMAP | WS_GROUP | WS_VISIBLE
+        LTEXT          "BUTTONS",                                                     -1 95,  90, 150,  25 PP_PROGTITLE
+        CTEXT           "OS/2 Warp Presentation Manager for Power Programmers",       -1, 7,  65, 255,  8
+        CTEXT           "Chapter 2 Sample Program",                                   -1, 7,  55, 255,  8
+        CTEXT           "by Uri J. Stern and James S. Morrow",                        -1, 7,  45, 255,  8
+        DEFPUSHBUTTON   "~OK"                          DID_OK,                           25,   8,  45, 16, WS_GROUP
+        PUSHBUTTON      "~Frame Controls"              DID_FRAME,                        80,   8,  80, 16, WS_GROUP
+        PUSHBUTTON      "~Save Position"               DID_SAVE,                        170,   8,  80, 16, WS_GROUP
+
+    }
+}
+
+// --------------------------------------------------------------------------       
+// Configure User Preferences Dialog Box (Setup)                                    
+// --------------------------------------------------------------------------       
+DLGTEMPLATE IDD_CONFIGURE LOADONCALL MOVEABLE DISCARDABLE
+{
+ DIALOG  "BUTTONS - Configure User Preferences", IDD_CONFIGURE, 75, 75, 250, 100, FS_NOBYTEALIGN | WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+  {
+   AUTOCHECKBOX   "Hide Frame Controls on Startup",           IDC_FRAMECTLS,      20, 80, 190, 10, WS_GROUP
+   AUTOCHECKBOX   "Remove Entry from Window List",            IDC_WINLIST,        20, 70, 190, 10
+   AUTOCHECKBOX   "Confirm on Exit",                          IDC_CONFIRM,        20, 60, 190, 10 
+   AUTOCHECKBOX   "Replace Command Button with Command Line", IDC_COMLINE,        20, 50, 210, 10 
+
+   DEFPUSHBUTTON  "~OK"                                       DID_OK,           40,  8,  45, 15, WS_GROUP
+   PUSHBUTTON     "~Cancel"                                   DID_CANCEL,      100,  8,  45, 15,
+   PUSHBUTTON     "~Help"                                     DID_HELP,        160,  8,  45, 15,
+  }
+}
+
+
+// --------------------------------------------------------------------------       
+// View Program List dialog, used to kill/start programs or view the              
+// programs in the current program list
+// --------------------------------------------------------------------------       
+DLGTEMPLATE IDD_PROGLIST LOADONCALL MOVEABLE DISCARDABLE
+{
+ DIALOG  "BUTTONS - View Program List", IDD_PROGLIST, 75, 75, 250, 100, FS_NOBYTEALIGN | WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+  {
+   LISTBOX                                             IDL_PROGLIST,     25,  35, 200, 50, LS_HORZSCROLL
+
+   DEFPUSHBUTTON  "~OK"                 DID_OK,           40,   8,  50, 15, WS_GROUP
+   PUSHBUTTON     "~Kill"               DID_KILL,        100,   8,  50, 15,
+   PUSHBUTTON     "~Help"               DID_HELP,        160,   8,  50, 15, 
+  }
+}
+
+// --------------------------------------------------------------------------       
+// Configure Program Buttons dialog - used to setup the program list              
+// that will be used to create the program buttons
+// --------------------------------------------------------------------------       
+DLGTEMPLATE IDD_SETUP LOADONCALL MOVEABLE DISCARDABLE
+{
+ DIALOG "BUTTONS - Configure Program Buttons", IDD_SETUP, 32, 32, 330, 200,, FCF_DLGBORDER | FCF_SYSMENU | FCF_TITLEBAR | FCF_TASKLIST | FCF_MINBUTTON
+ {
+  CONTROL         ID_MAINWND,                      ID_MAINWND,       25, 120,  21, 21, WC_STATIC, SS_ICON | WS_GROUP | WS_VISIBLE
+  GROUPBOX        "Program Icon"                   -1                 3, 115,  70, 30
+
+  PUSHBUTTON "~Find..."                            DID_FIND,        250, 170,  40, 16,
+
+  LTEXT "Program File"                             ID_TEXT,          10, 180,  70,  8
+  ENTRYFIELD        ""                             IDE_EXECUTABLE,   90, 180, 130,  8, ES_MARGIN
+
+  LTEXT "Parameters"                               ID_TEXT,          10, 165,  70,  8
+  ENTRYFIELD      ""                               IDE_PARAMETERS,   90, 165, 130,  8, ES_MARGIN
+
+  PUSHBUTTON "#605"                                DID_LEFT,        110, 120,  32, 16, WS_GROUP | BS_ICON
+  PUSHBUTTON "#606"                                DID_RIGHT,       150, 120,  32, 16, BS_ICON
+
+
+  GROUPBOX   "Change Program Icon"                 -1               220, 115, 100, 30
+  PUSHBUTTON "~Icon..."                            DID_ICON,        230, 120,  40, 16,
+  PUSHBUTTON "~Default"                            DID_DEFAULT,     270, 120,  40, 16,
+
+  GROUPBOX          "Program Type"                 ID_TEXT           15,  30, 300, 70
+  AUTORADIOBUTTON   "Default",                     IDR_DEFAULT,      30,  70, 140, 10, WS_GROUP
+  AUTORADIOBUTTON   "Presentation Manager",        IDR_PM,           30,  60, 140, 10,
+  AUTORADIOBUTTON   "OS/2 Windowed Session",       IDR_OS2WINDOW,    30,  50, 140, 10,
+  AUTORADIOBUTTON   "OS/2 Fullscreen Session",     IDR_OS2FSCREEN,   30,  40, 140, 10,
+  AUTORADIOBUTTON   "DOS Windowed Session",        IDR_DOSWINDOW,   170,  70, 140, 10,
+  AUTORADIOBUTTON   "DOS Fullscreen Session",      IDR_DOSFSCREEN,  170,  60, 140, 10,
+  AUTORADIOBUTTON   "Seamless Win-OS/2 Session",   IDR_WINWINDOW,   170,  50, 140, 10,
+  AUTORADIOBUTTON   "Fullscreen Win-OS/2 Session", IDR_WINFSCREEN,  170,  40, 140, 10,
+
+  DEFPUSHBUTTON     "~Apply"                       DID_OK,           30,   8,  45, 15, WS_GROUP
+  PUSHBUTTON        "~Save"                        DID_SAVE,        100,   8,  45, 15,
+  PUSHBUTTON        "~Close"                       DID_CANCEL,      170,   8,  45, 15,
+  PUSHBUTTON        "~Help"                        DID_HELP,        240,   8,  45, 15,
+
+
+ }
+}
+
+// --------------------------------------------------------------------------       
+// Run Utility Program dialog                                                       
+// --------------------------------------------------------------------------       
+DLGTEMPLATE IDD_COMMAND LOADONCALL MOVEABLE DISCARDABLE
+{
+ DIALOG  "BUTTONS - Run Utility Programs",    IDD_COMMAND, 75,  75, 300, 120, FS_NOBYTEALIGN | WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR | FCF_TASKLIST | FCF_MINBUTTON
+  {
+   LTEXT       "Program"                ID_TEXT,          40,  80,  50,  8
+   COMBOBOX    "",                      IDL_COMLIST,     100,  30, 150, 60, CBS_DROPDOWN | WS_TABSTOP | WS_VISIBLE                                   
+
+   LTEXT "Parameters"                   ID_TEXT,          40,  60,  70,  8                 
+   ENTRYFIELD      ""                   IDE_PARAMETERS,  102,  60, 146,  8, ES_MARGIN      
+
+   DEFPUSHBUTTON  "~OK"                 DID_RUN,          60,   8,  50, 15, WS_GROUP
+   PUSHBUTTON     "~Cancel"             DID_CANCEL,      120,   8,  50, 15,
+   PUSHBUTTON     "~Save"               DID_SAVE,        180,   8,  50, 15, 
+
+  }
+}
+
+// --------------------------------------------------------------------------       
+// Configure Command Interpreter dialog box.  Allows the user                     
+// to configure the command interpreter by passing a parameter to 
+// the command interpreter specified by the COMSPEC environment variable
+// --------------------------------------------------------------------------       
+DLGTEMPLATE IDD_COMSPEC LOADONCALL MOVEABLE DISCARDABLE                                                                         
+{                                                                                                                                
+ DIALOG  "BUTTONS - Configure Command Interpreter", IDD_COMSPEC, 75, 75, 300, 140, FS_NOBYTEALIGN | WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR  
+  {                                                                                                                              
+   CONTROL "",                                                           ID_STATIC,       10, 115,  270,  8, WC_STATIC, SS_TEXT | WS_GROUP | WS_VISIBLE  TEXT_COLOR, CLR_DARKRED
+   LTEXT   "Use the entryfield below to pass a command line parameter"   ID_TEXT,         10,  95,  270,  8
+   LTEXT   "to the command interpreter that is specified by the COMSPEC" ID_TEXT,         10,  85,  270,  8 
+   LTEXT   "statement in your CONFIG.SYS."                               ID_TEXT,         10,  75,  250,  8 
+
+   ENTRYFIELD        ""                                                  IDE_PARAMETERS,  25,  50,  245,  8, ES_MARGIN      
+   DEFPUSHBUTTON     "~OK"                                               DID_OK,          90,   8,   50, 15,                                       
+   PUSHBUTTON        "~Cancel"                                           DID_CANCEL,     150,   8,   50, 15,
+  }                                                                                                                              
+}                                                                                                                                
+

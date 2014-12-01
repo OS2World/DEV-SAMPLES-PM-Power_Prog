@@ -1,0 +1,221 @@
+// ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+// บ  FILENAME:      SHOWOFF.RC                                       mm/dd/yy     บ
+// บ                                                                               บ
+// บ  DESCRIPTION:   Resource Script File for SHOWOFF                              บ
+// บ                                                                               บ
+// บ  NOTES:         This file contains all of the various dialog templates,       บ
+// บ                 menu defintions, keyboard accelerators and message tables     บ
+// บ                 that are used by SHOWOFF.                                     บ
+// บ                                                                               บ
+// บ  PROGRAMMER:    Uri J. Stern and James S. Morrow                              บ
+// บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ
+// บ                                                                               บ
+// บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ
+// บ                                                                               บ
+// ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+
+#include <os2.h>
+#include "showoff.h"
+#include "sherror.h"
+
+POINTER  ID_FRAME          showoff.ico
+BITMAP   IDB_PRODINFO      prodinfo.bmp
+
+#define STATIC  0x00000009
+
+// --------------------------------------------------------------------------            
+// Set the Presentation Parameters used by the application.                       
+// --------------------------------------------------------------------------            
+#define PP_PROGTITLE   PRESPARAMS PP_FOREGROUNDCOLORINDEX, CLR_RED        PRESPARAMS PP_FONTNAMESIZE, "28.Tms Rmn"
+#define PP_SMALL_BLUE  PRESPARAMS PP_FOREGROUNDCOLORINDEX, CLR_DARKBLUE   PRESPARAMS PP_FONTNAMESIZE, "12.System VIO"
+#define PP_SMALL_RED   PRESPARAMS PP_FOREGROUNDCOLORINDEX, CLR_RED        PRESPARAMS PP_FONTNAMESIZE, "12.System VIO"
+#define PP_SMALL_GREEN PRESPARAMS PP_FOREGROUNDCOLORINDEX, CLR_DARKGREEN  PRESPARAMS PP_FONTNAMESIZE, "12.System VIO"
+#define PP_BACK_CLEAR PRESPARAMS PP_BACKGROUNDCOLORINDEX, CLR_WHITE
+
+// --------------------------------------------------------------------------            
+// Define our Accelerator Keys
+// --------------------------------------------------------------------------            
+ACCELTABLE ID_FRAME PRELOAD
+{
+  VK_ESC,    IDM_EDITCLEAR,                VIRTUALKEY
+  VK_SPACE,  IDM_STOPSHOW,                 VIRTUALKEY
+
+
+  VK_F2,     IDM_OPENBMP,                  VIRTUALKEY
+  VK_F3,     IDM_EXIT,                     VIRTUALKEY
+
+  VK_F5,     IDM_CREATE,                   VIRTUALKEY
+  VK_F6,     IDM_EDITPRES,                 VIRTUALKEY
+  VK_F7,     IDM_PREVIEW,                  VIRTUALKEY
+  VK_F8,     IDM_STARTSHOW,                VIRTUALKEY
+  VK_F9,     IDM_PAUSE,                    VIRTUALKEY
+
+  VK_F10,    IDM_FFORWARD,                 VIRTUALKEY
+  VK_F11,    IDM_REWIND,                   VIRTUALKEY
+  VK_F12,    IDM_RESTART,                  VIRTUALKEY
+  VK_INSERT, IDM_EDITCOPY,                 VIRTUALKEY, CONTROL
+  VK_INSERT, IDM_EDITPASTE,                VIRTUALKEY, SHIFT
+  VK_DELETE, IDM_EDITCUT,                  VIRTUALKEY, SHIFT
+
+  "^D",      IDM_DESKTOP
+  "^d",      IDM_DESKTOP
+  "^L",      IDM_LOCKUP
+  "^l",      IDM_LOCKUP
+  "^F",      IDM_FULLSCN
+  "^f",      IDM_FULLSCN
+  "^S",      IDM_SAVEWND
+  "^s",      IDM_SAVEWND
+  "^U",      IDM_CONFIGURE
+  "^u",      IDM_CONFIGURE
+  "^R",      IDM_DEVICEINF
+  "^r",      IDM_DEVICEINF
+}
+
+// --------------------------------------------------------------------------            
+// Define our Application Menu
+// --------------------------------------------------------------------------            
+MENU    ID_FRAME
+{
+  SUBMENU "~File", ID_FILE_MENU
+  {
+    MENUITEM "Open ~Bitmap...\tF2",          IDM_OPENBMP
+    MENUITEM SEPARATOR
+    MENUITEM "Create Presentation...\tF5",   IDM_CREATE
+    MENUITEM "Edit Presentation...  \tF6",   IDM_EDITPRES
+    MENUITEM "Preview Presentation...\tF7",  IDM_PREVIEW
+    MENUITEM SEPARATOR
+    MENUITEM "E~xit\tF3",                    IDM_EXIT
+  }
+
+  SUBMENU "~Edit",                           ID_EDIT_MENU                  
+  {                                                                              
+   MENUITEM "Cu~t\tShift+Delete",            IDM_EDITCUT                  
+   MENUITEM "~Copy\tCtrl+Insert",            IDM_EDITCOPY                 
+   MENUITEM "~Paste\tShift+Insert",          IDM_EDITPASTE                
+   MENUITEM SEPARATOR                                                            
+   MENUITEM "Cl~ear\tDelete",                IDM_EDITCLEAR                
+  }                                                                              
+
+  SUBMENU "~Display", ID_PRES_MENU
+  {
+   MENUITEM "Start Presentation...\tF8",    IDM_STARTSHOW
+   MENUITEM SEPARATOR
+   MENUITEM IDS_PAUSE_OFF,                  IDM_PAUSE,     MIA_DISABLED, MIA_DISABLED
+   MENUITEM "Forward\tF10",                 IDM_FFORWARD,  MIA_DISABLED, MIA_DISABLED
+   MENUITEM "Rewind\tF11",                  IDM_REWIND,    MIA_DISABLED, MIA_DISABLED
+   MENUITEM SEPARATOR
+   MENUITEM "Restart Presentation\tF12",    IDM_RESTART,   MIA_DISABLED, MIA_DISABLED
+   MENUITEM "Stop Presentation\tSpace Bar", IDM_STOPSHOW,  MIA_DISABLED, MIA_DISABLED
+  }
+
+  SUBMENU "~Options", ID_OPTIONS_MENU
+  {
+   MENUITEM "Change ~Desktop Background...\tCtrl+D",       IDM_DESKTOP
+   MENUITEM "~Lockup Keyboard and Mouse\tCtrl+L",          IDM_LOCKUP
+   MENUITEM SEPARATOR
+   MENUITEM "Hide ~Frame Controls\tCtrl+F",                IDM_FULLSCN
+   MENUITEM "~Save Window Size and Position...\tCtrl+S",   IDM_SAVEWND
+   MENUITEM "Configure ~User Preferences...\tCtrl+U",      IDM_CONFIGURE
+   MENUITEM "Display Current Screen ~Resolution\tCtrl+R",  IDM_DEVICEINF
+  }
+
+  SUBMENU "~Help", ID_HELP_MENU, MIS_HELP
+  {
+   MENUITEM "~General help",              IDM_HELPGEN
+   MENUITEM "~Keys help",                 IDM_HELPKEYS
+   MENUITEM SEPARATOR
+   MENUITEM "~Product Information",       IDM_PRODINFO
+  }
+}
+
+
+// --------------------------------------------------------------------------            
+// Define our message table for messages.
+// --------------------------------------------------------------------------            
+MESSAGETABLE LOADONCALL
+{
+  ERROR_OPENING_FILE,              "Error Opening Bitmap File"
+  ERROR_INVALID_BITMAP,            "The Specified File is Not a Valid Bitmap File"
+  ERROR_CREATING_BITMAP,           "Error Creating Bitmap"
+  ERROR_ALLOC_MEM,                 "Error allocating memory for Bitmap File."
+  ERROR_WRITING_PROFILE            "Error Writing Profile Information"
+  ERROR_BOGUS_HPS                  "SHOWOFF is unable to call GpiBitBlt.  Either the Window or Memory Presentation Space is invalid."
+}
+
+
+// --------------------------------------------------------------------------            
+// Define our User Preferences Dialog
+// --------------------------------------------------------------------------            
+DLGTEMPLATE IDD_CONFIGURE
+{
+ DIALOG  "SHOWOFF - Configure User Preferences", IDD_CONFIGURE, 75, 75, 250, 100, FS_NOBYTEALIGN | WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+  {
+   AUTOCHECKBOX   "Suppress Logo on Startup",           IDC_SUPLOGO,      20, 70, 190, 10, WS_GROUP PP_SMALL_RED
+   AUTOCHECKBOX   "Display Bitmap as Actual Size",      IDC_ACTUALSIZE,   20, 60, 190, 10,          PP_SMALL_RED
+   AUTOCHECKBOX   "Save Window Position on Exit",       IDC_SAVEWNDEXIT,  20, 50, 190, 10,          PP_SMALL_RED
+
+   DEFPUSHBUTTON  "~OK"                                 DID_OK,           40,  8,  45, 15, WS_GROUP
+   PUSHBUTTON     "~Cancel"                             DID_CANCEL,      100,  8,  45, 15,
+   PUSHBUTTON     "~Help"                               DID_HELP,        160,  8,  45, 15,
+  }
+}
+
+// --------------------------------------------------------------------------            
+// Define our Product Information Dialog
+// --------------------------------------------------------------------------            
+DLGTEMPLATE IDD_PRODINFO
+{
+ DIALOG  "SHOWOFF - Product Information", IDD_PRODINFO, 75, 75, 275, 130,,FCF_TITLEBAR | FCF_SYSMENU
+ {
+  CONTROL         IDB_PRODINFO, IDB_PRODINFO, 20, 90, 21, 21, WC_STATIC, SS_BITMAP | WS_GROUP | WS_VISIBLE
+  LTEXT          "SHOWOFF",                                                  STATIC    90,  90, 150,  25 PP_PROGTITLE
+  CTEXT           "OS/2 Warp Presentation Manager for Power Programmers",    STATIC,    7,  65, 255,  8
+  CTEXT           "Chapter 15 Sample Program",                               STATIC,    7,  55, 255,  8
+  CTEXT           "by Uri J. Stern and James S. Morrow",                     STATIC,    7,  45, 255,  8
+  DEFPUSHBUTTON   "~OK"                                                      DID_OK,      115,   8,  45, 16, WS_GROUP
+ }
+}
+
+// --------------------------------------------------------------------------
+// The Create Presentation Dialog Template
+// --------------------------------------------------------------------------
+DLGTEMPLATE IDD_CREATEPRES
+{
+ DIALOG "SHOWOFF - Create A Presentation", IDD_CREATEPRES, 8, 8, 400, 200,,FCF_DLGBORDER | FCF_TITLEBAR | FCF_SYSMENU
+ {
+  // อออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออ
+  // CONTROL       TEXT STRING        IDENTIFIER          DIALOG COORDINATES
+  // อออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออ
+     GROUPBOX      IDS_DEFTIME        STATIC,               5,  150,  142,  40
+     SPINBUTTON                       IDE_DEFTIME,         45,  162,   30,  12,  SPBS_MASTER | SPBS_NUMERICONLY
+     LTEXT         IDS_SECONDS        STATIC,              80,  162,   50,   8,  PP_SMALL_RED
+
+     GROUPBOX      IDS_PRESOPTS       STATIC,             150,  150,  245,  40
+     AUTOCHECKBOX  IDS_RESTART,       IDC_RESTART,        170,  170,  210,  10,  PP_SMALL_GREEN
+     AUTOCHECKBOX  IDS_FULLSCR,       IDC_FULLSCR,        170,  160,  210,  10,  PP_SMALL_GREEN
+
+     GROUPBOX      ""                 STATIC,               5,   42,  390,  90
+     LTEXT         IDS_BMPINPRES      STATIC,              10,  115,  140,   8,  PP_SMALL_RED
+     LISTBOX                          IDL_PRESENTATION,    10,   50,  180,  64,  LS_HORZSCROLL
+
+     LTEXT         IDS_BMPTOADD       ID_BMPTOADD,        259,  115,  125,   8,  PP_SMALL_RED
+     ENTRYFIELD    IDS_BLANK          IDE_FILENAME,       260,  105,  123,   8,  ES_MARGIN
+
+     LTEXT         IDS_DISPLAY        ID_DISPBMP,         259,   70,  125,   8,  PP_SMALL_RED
+     SPINBUTTON                       IDE_BMPTIME,        285,   55,   30,  12,  SPBS_MASTER | SPBS_NUMERICONLY
+     LTEXT         IDS_SECONDS        ID_SECONDS,         320,   55,   50,   8,  PP_SMALL_RED
+
+     CTEXT         IDS_INFO1          ID_INFO               5,  135,  380,   8,  PP_SMALL_BLUE
+
+     PUSHBUTTON    "Change"           DID_CHANGE,         290,   60,   55,  16,  WS_GROUP
+
+     PUSHBUTTON    "Find..."          DID_FIND,           195,  100,   55,  16,  WS_GROUP
+     PUSHBUTTON    "<< Add "          DID_ADD,            195,   70,   55,  16,
+     PUSHBUTTON    "Remove >>"        DID_REMOVE,         195,   50,   55,  16,
+
+     DEFPUSHBUTTON IDS_SAVEAS_BTN     DID_OK,              80,    8,   64,  16,  WS_GROUP
+     PUSHBUTTON    "~Close"           DID_CANCEL,         170,    8,   64,  16
+     PUSHBUTTON    "~Help"            DID_HELP,           260,    8,   64,  16
+ }
+}
+

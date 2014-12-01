@@ -1,0 +1,211 @@
+// ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป            
+// บ  FILENAME:      PMEDIT.RC                                        mm/dd/yy     บ            
+// บ                                                                               บ            
+// บ  DESCRIPTION:   Resource Script File for PMEDIT executable                    บ            
+// บ                                                                               บ            
+// บ  NOTES:         This file contains all of the resource information for the    บ            
+// บ                 PMEDIT executable including the dialog templates, menus,      บ            
+// บ                 accelerators and stringtables.                                บ            
+// บ                                                                               บ            
+// บ  PROGRAMMER:    Uri Joseph Stern                                              บ            
+// บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ            
+// บ                                                                               บ            
+// บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ            
+// บ                                                                               บ            
+// ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ            
+#include <os2.h>
+#include "pmedit.h"
+
+
+// --------------------------------------------------------------------------              
+// Set the Presentation Parameters used by the product information                         
+// dialog box.                                                                             
+// --------------------------------------------------------------------------              
+#define PP_PROGTITLE PRESPARAMS PP_FOREGROUNDCOLORINDEX, CLR_RED PRESPARAMS PP_FONTNAMESIZE, "28.Tms Rmn" 
+
+// --------------------------------------------------------------------------              
+// These are the icons that are required for our button bar.                       
+// --------------------------------------------------------------------------              
+ICON IDI_NEW       PRELOAD new.ico        // create a new file
+ICON IDI_EDIT      PRELOAD edit.ico       // edit an existing file
+ICON IDI_SAVE      PRELOAD save.ico       // save a file
+ICON IDI_SAVEAS    PRELOAD saveas.ico     // save as
+ICON IDI_SEARCH    PRELOAD search.ico     // search
+ICON IDI_CUT       PRELOAD cut.ico        // cut clipboard operation
+ICON IDI_COPY      PRELOAD copy.ico       // copy clipboard operation
+ICON IDI_PASTE     PRELOAD paste.ico      // paste clipboard operation
+ICON IDI_HELP      PRELOAD question.ico   // product information 
+ICON IDI_FONT      PRELOAD font.ico       // change the font
+
+// --------------------------------------------------------------------------                       
+// Define the icon, bitmap and pointer resources used by the application                            
+// --------------------------------------------------------------------------                       
+ICON       ID_FRAME PRELOAD pmedit.ico                  
+BITMAP     IDB_PRODINFO          prodinfo.bmp  
+
+// --------------------------------------------------------------------------            
+// Define our accelerator table                                                          
+// --------------------------------------------------------------------------            
+ACCELTABLE ID_FRAME PRELOAD
+{
+  VK_ESC, IDM_DISMISS,    VIRTUALKEY
+  VK_F2, IDM_FILESAVE,    VIRTUALKEY
+  VK_F3, IDM_EXIT,        VIRTUALKEY
+  VK_F5, IDM_FILEOPEN,    VIRTUALKEY
+  VK_F6, IDM_FILESAVEAS,  VIRTUALKEY 
+
+  "^S",  IDM_FILESEARCH
+  "^s",  IDM_FILESEARCH
+  "^F",  IDM_CHANGEFONT       
+  "^f",  IDM_CHANGEFONT        
+
+}
+
+// --------------------------------------------------------------------------                  
+// Define our action bar menu                                                                  
+// --------------------------------------------------------------------------                  
+MENU ID_FRAME PRELOAD
+{
+ SUBMENU "~File",                              ID_FILEMENU, MIS_TEXT
+  {
+   MENUITEM "~New",                                 IDM_FILENEW
+   MENUITEM "~Open a File...\tF5",                  IDM_FILEOPEN
+   MENUITEM SEPARATOR
+   MENUITEM "~Save\tF2",                            IDM_FILESAVE
+   MENUITEM "Save ~as...\tF6",                      IDM_FILESAVEAS
+   MENUITEM SEPARATOR
+   MENUITEM "Search...\tCtrl+S",                    IDM_FILESEARCH        
+  }
+
+ SUBMENU "~Edit",                              ID_EDITMENU, MIS_TEXT
+  {
+   MENUITEM "Cu~t\tShift+Delete",                  IDM_EDITCUT
+   MENUITEM "~Copy\tCtrl+Insert",                  IDM_EDITCOPY
+   MENUITEM "~Paste\tShift+Insert",                IDM_EDITPASTE
+   MENUITEM SEPARATOR
+   MENUITEM "Cl~ear\tDelete",                      IDM_EDITCLEAR
+   MENUITEM SEPARATOR
+   MENUITEM "Select ~All",                         IDM_EDITSELALL
+  }
+
+ SUBMENU "~Options",                           ID_OPTIONSMENU, MIS_TEXT
+  {
+   MENUITEM "Configure Word W~rap...",             IDM_CONFIGURE
+   MENUITEM "Save ~Window Position",               IDM_SAVEWIN
+   MENUITEM SEPARATOR               
+   MENUITEM "Change ~Font...\tCtrl+F",             IDM_CHANGEFONT
+   MENUITEM SEPARATOR        
+   SUBMENU  "Change Edit Window Color ",           IDM_COLORS
+   {
+    MENUITEM "~Default",                           IDM_DEFAULT
+    MENUITEM "~White",                             IDM_WHITE
+    MENUITEM "~Red",                               IDM_RED
+    MENUITEM "~Blue",                              IDM_BLUE
+    MENUITEM "~Yellow",                            IDM_YELLOW
+    MENUITEM "~Cyan",                              IDM_CYAN
+   }
+
+   SUBMENU  "Change Text ~Colors ",                IDM_TEXTCOLORS              
+    {                                                                           
+     MENUITEM "~Black",                            IDM_TXT_BLACK           
+     MENUITEM "~White",                            IDM_TXT_WHITE                           
+     MENUITEM "~Red",                              IDM_TXT_RED                             
+     MENUITEM "~Blue",                             IDM_TXT_BLUE                            
+     MENUITEM "~Green",                            IDM_TXT_GREEN                           
+     MENUITEM "~Yellow",                           IDM_TXT_YELLOW                          
+    }                                                                           
+  }
+
+ SUBMENU "Help",                               ID_HELPMENU, MIS_HELP 
+  {
+   MENUITEM "Help ~index",                         IDM_HELPINDEX
+   MENUITEM "~General help",                       IDM_HELPGEN
+   MENUITEM "~Keys help",                          IDM_HELPKEYS
+   MENUITEM SEPARATOR
+   MENUITEM "~Product Information",                IDM_PRODINFO 
+  }
+}
+
+// --------------------------------------------------------------------------             
+// Define our popup menu.                                                             
+// --------------------------------------------------------------------------             
+MENU ID_POPUPMENU                                                                 
+{                                                                                 
+ MENUITEM "~New",                     IDM_FILENEW,,MIA_NODISMISS             
+ MENUITEM "~Open a File...\tF5",      IDM_FILEOPEN       
+ MENUITEM SEPARATOR                                                  
+ MENUITEM "~Save\tF2",                IDM_FILESAVE       
+ MENUITEM "Save ~as...\tF8",          IDM_FILESAVEAS     
+ MENUITEM SEPARATOR                                                 
+ MENUITEM "Search...\tCtrl+S",        IDM_FILESEARCH     
+ MENUITEM SEPARATOR                                                              
+ MENUITEM "~Product Information",     IDM_PRODINFO                        
+ MENUITEM SEPARATOR               
+ MENUITEM "Change Font...",           IDM_CHANGEFONT          
+}                                                                                 
+
+// --------------------------------------------------------------------------                       
+// Define our stringtable.                                                                           
+// --------------------------------------------------------------------------                       
+STRINGTABLE
+{
+ IDMSG_HELP                "Click on the radiobutton corresponding to your choice.  By default, the Word Wrap option is enabled."
+ IDMSG_FILEALREADYEXISTS   "A file with the same name already exists in the specified directory.  Do you wish to overwrite the file?"
+}
+
+// --------------------------------------------------------------------------                 
+// The Search Dialog Template                                                   
+// --------------------------------------------------------------------------                 
+DLGTEMPLATE ID_SEARCH LOADONCALL MOVEABLE DISCARDABLE                                                                                 
+{                                                                                                                                      
+ DIALOG  "PMEDIT - Text Search Facility", ID_SEARCH, 75, 75, 250, 130, FS_NOBYTEALIGN | WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR   
+  {                                                                                                                                  
+   LTEXT          "Search For:"                       -1,    30, 110, 60, 8                                                                         
+   ENTRYFIELD     "",                     IDE_SEARCHTEXT,   100, 110, 95, 8, ES_MARGIN                                                              
+
+   LTEXT          "Replace With:"                     -1,    30,  90, 60, 8                    
+   ENTRYFIELD     "",                     IDE_REPLACETEXT,  100,  90, 95, 8, ES_MARGIN         
+
+
+   GROUPBOX       "Options"                           -1     25,  35, 200, 40
+   AUTOCHECKBOX   " Case Sensitive Search",IDC_CASECHECK,    70,  55, 150, 10, WS_GROUP
+   AUTOCHECKBOX   " Replace All",          IDC_REPLACEALL,   70,  45, 150, 10
+
+   DEFPUSHBUTTON  "~Find"                 DID_FIND,         30,  8, 45, 15, WS_GROUP                        
+   PUSHBUTTON     "~Replace"              DID_REPLACE,     100,  8, 45, 15,                       
+   PUSHBUTTON     "~Cancel"               DID_OK,          170,  8, 45, 15,                      
+  }                                                                                                                                  
+}                                                                                                                                      
+
+// --------------------------------------------------------------------------                              
+// The Product Information Dialog Template                                                                 
+// --------------------------------------------------------------------------                              
+DLGTEMPLATE ID_PRODINFO LOADONCALL MOVEABLE DISCARDABLE
+{
+ DIALOG  "PMEDIT - Product Information", ID_PRODINFO, 75, 75, 275, 130,,FCF_TITLEBAR
+ {
+  CONTROL         IDB_PRODINFO, IDB_PRODINFO, 20, 90, 21, 21, WC_STATIC, SS_BITMAP | WS_GROUP | WS_VISIBLE
+  LTEXT           "PMEDIT",                                                     -1   95,  90, 150,  25 PP_PROGTITLE
+  CTEXT           "OS/2 Warp Presentation Manager for Power Programmers",       -1,   7,  65, 255,  8
+  CTEXT           "Chapter 8 Sample Program",                                   -1,   7,  55, 255,  8
+  CTEXT           "by Uri J. Stern and James S. Morrow",                        -1,   7,  45, 255,  8
+  DEFPUSHBUTTON   "~OK"                                                     DID_OK, 115,   8,  45, 16, WS_GROUP
+ }
+}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+// --------------------------------------------------------------------------
+// The Configure Spirographs dialog template
+// --------------------------------------------------------------------------
+DLGTEMPLATE ID_CONFIGURE PRELOAD MOVEABLE DISCARDABLE
+{
+ DIALOG  "PMEDIT - Configure Word Wrap", ID_CONFIGURE, 75, 75, 275, 130,, FCF_TITLEBAR | FCF_SYSMENU | FCF_DLGBORDER
+  {
+   GROUPBOX        "Word Wrap"                    -1                   40,   55,  190,  50
+   AUTORADIOBUTTON "Turn Word Wrap On"            IDR_WORDON,          85,   80,  120,   8, WS_GROUP
+   AUTORADIOBUTTON "Turn Word Wrap Off"           IDR_WORDOFF,         85,   70,  120,   8,
+
+   DEFPUSHBUTTON "~OK"                            DID_OK,              40,    8,   50,  16, WS_GROUP
+   PUSHBUTTON    "~Cancel"                        DID_CANCEL,         110,    8,   50,  16
+   PUSHBUTTON    "~Help"                          DID_HELP,           180,    8,   50,  16
+  }
+} 

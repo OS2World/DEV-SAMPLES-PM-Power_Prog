@@ -1,0 +1,121 @@
+// ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+// บ  FILENAME:      CARDFILE.RC                                      mm/dd/yy     บ
+// บ                                                                               บ
+// บ  DESCRIPTION:   Main resource script for CARDFILE                             บ
+// บ                                                                               บ
+// บ  NOTES:         None                                                          บ
+// บ                                                                               บ
+// บ  PROGRAMMER:    Uri Joseph Stern and James Stan Morrow                        บ
+// บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ
+// บ                                                                               บ
+// บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ
+// บ                                                                               บ
+// ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+
+#include "cardfile.h"
+
+// --------------------------------------------------------------------------
+// Build application ICON resources
+// --------------------------------------------------------------------------
+ICON     APPLICATION_ID CARDFILE.ICO
+ICON     ID_ICON1       BUS.ICO
+ICON     ID_ICON2       SPORT.ICO
+ICON     ID_ICON3       PHONE.ICO
+ICON     ID_ICON4       ICON4.ICO
+ICON     ID_ICON5       ICON5.ICO
+ICON     ID_ICON6       ICON6.ICO
+ICON     ID_ICON7       ICON7.ICO
+ICON     ID_ICON8       ICON8.ICO
+ICON     ID_ICON9       ICON9.ICO
+ICON     ID_ICON10      ICON10.ICO
+
+// --------------------------------------------------------------------------
+// Build resource for the application's main menu
+// --------------------------------------------------------------------------
+MENU APPLICATION_ID
+{
+   SUBMENU      "~File",        MID_FILE
+   {
+      MENUITEM  "~New",         MID_FILENEW
+      MENUITEM  "~Open...",     MID_FILEOPEN
+      MENUITEM  SEPARATOR
+      MENUITEM  "~Save",        MID_FILESAVE
+      MENUITEM  "Save ~as...",  MID_FILESAVEAS
+      MENUITEM  SEPARATOR
+      MENUITEM  "E~xit",        MID_FILEEXIT
+   }
+
+   SUBMENU      "~Card",        MID_CARD
+   {
+      MENUITEM  "~Add...",      MID_CARDCREATE
+      MENUITEM  "~Edit...",     MID_CARDEDIT
+      MENUITEM  "~Delete",      MID_CARDREMOVE
+   }
+
+   SUBMENU      "~Help",        MID_HELP
+   {
+      MENUITEM  "~General help",        MID_HELPGENERAL
+      MENUITEM  "~Using help",          MID_HELPUSING
+      MENUITEM  SEPARATOR
+      MENUITEM  "~Product Information", MID_HELPPROD
+   }
+}
+
+// --------------------------------------------------------------------------
+// include the application dialog resources
+// --------------------------------------------------------------------------
+rcinclude               carddlg.dlg
+
+// --------------------------------------------------------------------------
+// build HELPTABLE resource for the application
+// --------------------------------------------------------------------------
+HELPTABLE APPLICATION_ID
+{
+   HELPITEM    APPLICATION_ID, APPLICATION_ID, APPLICATION_ID
+   HELPITEM    DID_EDITCARD,   DID_EDITCARD,   DID_EDITCARD
+}
+
+// --------------------------------------------------------------------------
+// build HELPSUBTABLE resource for the main application window
+// --------------------------------------------------------------------------
+HELPSUBTABLE APPLICATION_ID
+{
+   HELPSUBITEM MID_FILE,         MID_FILE
+   HELPSUBITEM MID_FILENEW,      MID_FILENEW
+   HELPSUBITEM MID_FILEOPEN,     MID_FILEOPEN
+   HELPSUBITEM MID_FILESAVE,     MID_FILESAVE
+   HELPSUBITEM MID_FILESAVEAS,   MID_FILESAVEAS
+   HELPSUBITEM MID_FILEEXIT,     MID_FILEEXIT
+   HELPSUBITEM MID_CARD,         MID_CARD
+   HELPSUBITEM MID_CARDCREATE,   MID_CARDCREATE
+   HELPSUBITEM MID_CARDEDIT,     MID_CARDEDIT
+   HELPSUBITEM MID_CARDREMOVE,   MID_CARDREMOVE
+   HELPSUBITEM MID_HELP,         MID_HELP
+   HELPSUBITEM MID_HELPGENERAL,  MID_HELPGENERAL
+   HELPSUBITEM MID_HELPUSING,    MID_HELPUSING
+   HELPSUBITEM MID_HELPPROD,     MID_HELPPROD
+}
+
+// --------------------------------------------------------------------------
+// build HELPSUBTABLE resource for the card edit dialog
+// --------------------------------------------------------------------------
+HELPSUBTABLE DID_EDITCARD
+{
+   HELPSUBITEM DID_EDITNAMEI,    DID_EDITNAMEI
+   HELPSUBITEM DID_EDITNAMEL,    DID_EDITNAMEL
+   HELPSUBITEM DID_EDITCOMP,     DID_EDITCOMP
+   HELPSUBITEM DID_EDITADDR1,    DID_EDITADDR1
+   HELPSUBITEM DID_EDITADDR2,    DID_EDITADDR2
+   HELPSUBITEM DID_EDITCITY,     DID_EDITCITY
+   HELPSUBITEM DID_EDITSTATE,    DID_EDITSTATE
+   HELPSUBITEM DID_EDITZIP,      DID_EDITZIP
+   HELPSUBITEM DID_EDITPHONE,    DID_EDITPHONE
+   HELPSUBITEM DID_EDITDOB,      DID_EDITDOB
+   HELPSUBITEM DID_EDITANN,      DID_EDITANN
+   HELPSUBITEM DID_EDITMLE,      DID_EDITMLE
+   HELPSUBITEM DID_EDITTYPE,     DID_EDITTYPE
+   HELPSUBITEM DID_EDITRATING,   DID_EDITRATING
+   HELPSUBITEM DID_OK,           DID_EDITOK
+   HELPSUBITEM DID_CANCEL,       DID_EDITCAN
+}
+

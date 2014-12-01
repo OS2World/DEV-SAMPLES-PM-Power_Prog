@@ -1,0 +1,70 @@
+// ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+// บ  FILENAME:      PMED.RC                                          mm/dd/yy     บ
+// บ                                                                               บ
+// บ  DESCRIPTION:   Main resource script for PMED                                 บ
+// บ                                                                               บ
+// บ  NOTES:         Menus and Help Information                                    บ
+// บ                                                                               บ
+// บ  PROGRAMMER:    Uri Joseph Stern and James Stan Morrow                        บ
+// บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ
+// บ                                                                               บ
+// บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ
+// บ                                                                               บ
+// ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+
+#include "pmed.h"
+#include "pmeddlg.h"
+
+ICON APPLICATION_ID PMED.ICO
+
+MENU APPLICATION_ID
+{
+ SUBMENU "~File", MID_FILE
+ {
+  MENUITEM "~New",        MID_FILENEW
+  MENUITEM "~Open...",    MID_FILEOPEN
+  MENUITEM SEPARATOR
+  MENUITEM "~Save",       MID_FILESAVE
+  MENUITEM "Save ~as...", MID_FILESAVEAS
+  MENUITEM SEPARATOR
+  MENUITEM "E~xit",       MID_FILEEXIT
+ }
+
+ SUBMENU "~Help", MID_HELP
+ {
+  MENUITEM "General help", MID_HELPGEN
+  MENUITEM "Using help",   MID_HELPUSING
+  MENUITEM "Keys help",    MID_HELPKEYS
+  MENUITEM SEPARATOR
+  MENUITEM "~Product Information", MID_HELPPROD
+ }
+}
+
+rcinclude   pmeddlg.dlg
+
+HELPTABLE APP_HELP_TABLE
+{
+   HELPITEM    APPLICATION_ID, 2000,    HID_GENERAL
+   HELPITEM    DID_NOTSAVED,   2001,    HID_NOT_SAVED
+}
+
+HELPSUBTABLE   2000
+{
+   HELPSUBITEM MID_FILE,       HID_FILE_MENU
+   HELPSUBITEM MID_FILENEW,    HID_FILE_NEW
+   HELPSUBITEM MID_FILEOPEN,   HID_FILE_OPEN
+   HELPSUBITEM MID_FILESAVE,   HID_FILE_SAVE
+   HELPSUBITEM MID_FILESAVEAS, HID_FILE_SAVEAS
+   HELPSUBITEM MID_FILEEXIT,   HID_FILE_EXIT
+   HELPSUBITEM MID_HELP,       HID_HELP_MENU
+   HELPSUBITEM MID_HELPGEN,    HID_HELP_GEN
+   HELPSUBITEM MID_HELPUSING,  HID_HELP_USE
+   HELPSUBITEM MID_HELPKEYS,   HID_HELP_KEYS
+   HELPSUBITEM MID_HELPPROD,   HID_HELP_PROD
+}
+
+HELPSUBTABLE 2001
+{
+}
+
+

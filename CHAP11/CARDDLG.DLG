@@ -1,0 +1,155 @@
+// ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+// บ  FILENAME:      CARDDLG.DLG                                      mm/dd/yy     บ
+// บ                                                                               บ
+// บ  DESCRIPTION:   Resource script defining the application's dialogs            บ
+// บ                                                                               บ
+// บ  NOTES:         Dialog Templates are in this file                             บ
+// บ                                                                               บ
+// บ  PROGRAMMER:    Uri Joseph Stern and James Stan Morrow                        บ
+// บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ
+// บ                                                                               บ
+// บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ
+// บ                                                                               บ
+// ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+#ifndef OS2_INCLUDED
+   #include <os2.h>
+#endif
+DLGINCLUDE 1 "cardfile.h"
+
+// --------------------------------------------------------------------------    
+// Define the Product Information Bitmap                                         
+// --------------------------------------------------------------------------    
+BITMAP   IDB_PRODINFO "prodinfo.bmp"                                             
+
+// --------------------------------------------------------------------------
+// Build DIALOG TEMPLATE resource for the saveing dialog
+// --------------------------------------------------------------------------
+DLGTEMPLATE ID_SAVING LOADONCALL MOVEABLE DISCARDABLE
+{
+    DIALOG  "Dialog Title", ID_SAVING, 12, 74, 148, 16, WS_VISIBLE
+    {
+        CTEXT           "Saving file, please wait...", 303, 0, 0, 148, 16,
+                        DT_VCENTER
+    }
+}
+
+// --------------------------------------------------------------------------
+// Build DIALOG TEMPLATE resource for the loading dialog
+// --------------------------------------------------------------------------
+DLGTEMPLATE ID_LOADING LOADONCALL MOVEABLE DISCARDABLE
+{
+    DIALOG  "Dialog Title", ID_LOADING, 12, 74, 148, 16, WS_VISIBLE
+    {
+        CTEXT           "Loading file, please wait...", 302, 0, 0, 148, 16,
+                        DT_VCENTER
+    }
+}
+
+// --------------------------------------------------------------------------
+// Build DIALOG TEMPLATE resource for the card edit dialog
+// --------------------------------------------------------------------------
+DLGTEMPLATE DID_EDITCARD LOADONCALL MOVEABLE DISCARDABLE
+{
+    DIALOG  "Add/Edit Card", DID_EDITCARD, 44, 19, 348, 226, WS_VISIBLE,
+            FCF_SYSMENU | FCF_TITLEBAR
+    {
+        LTEXT           "First Name and Initial:", 201, 6, 213, 97, 8
+        ENTRYFIELD      "", DID_EDITNAMEI, 106, 213, 228, 8, ES_MARGIN
+        LTEXT           "Last Name:", DID_SAVECHANGES, 6, 199, 48, 8
+        ENTRYFIELD      "", DID_EDITNAMEL, 106, 199, 228, 8, ES_MARGIN
+        LTEXT           "Company:", DID_DISCARDCHANGES, 6, 185, 40, 8
+        ENTRYFIELD      "", DID_EDITCOMP, 106, 185, 228, 8, ES_MARGIN
+        LTEXT           "Address Line 1:", 207, 6, 171, 68, 8
+        ENTRYFIELD      "", DID_EDITADDR1, 106, 171, 228, 8, ES_MARGIN
+        LTEXT           "Address Line 2:", 209, 6, 157, 68, 8
+        ENTRYFIELD      "", DID_EDITADDR2, 106, 157, 228, 8, ES_MARGIN
+        LTEXT           "City:", 211, 6, 143, 20, 8
+        ENTRYFIELD      "", DID_EDITCITY, 106, 143, 228, 8, ES_MARGIN
+        LTEXT           "State:", 213, 6, 129, 25, 8
+        ENTRYFIELD      "", DID_EDITSTATE, 106, 129, 26, 8, ES_MARGIN
+        LTEXT           "Zip:", 215, 148, 129, 16, 8
+        ENTRYFIELD      "", DID_EDITZIP, 169, 129, 52, 8, ES_MARGIN
+        LTEXT           "Telephone #:", 217, 6, 115, 56, 8
+        ENTRYFIELD      "", DID_EDITPHONE, 106, 115, 115, 8, ES_MARGIN
+        LTEXT           "Date of Birth:", 219, 6, 101, 59, 8
+        ENTRYFIELD      "", DID_EDITDOB, 106, 101, 115, 8, ES_MARGIN
+        LTEXT           "Anniversary Date:", 221, 6, 87, 75, 8
+        ENTRYFIELD      "", DID_EDITANN, 106, 87, 115, 8, ES_MARGIN
+        MLE             "", DID_EDITMLE, 226, 85, 109, 54, MLS_WORDWRAP |
+                        MLS_HSCROLL | MLS_VSCROLL
+        GROUPBOX        "Card Type", 224, 6, 23, 135, 56
+        VALUESET        DID_EDITTYPE, 17, 29, 111, 40, VS_ICON | VS_BORDER |
+                        VS_ITEMBORDER
+                        CTLDATA 8, 0, 2, 5
+        GROUPBOX        "Rating", 225, 144, 23, 191, 56
+        SLIDER          DID_EDITRATING, 156, 28, 171, 40,
+                        SLS_SNAPTOINCREMENT | SLS_BUTTONSLEFT
+                        CTLDATA 12, 0, 11, 0, 0, 0
+        DEFPUSHBUTTON   "~Ok", CARD_CREATED, 82, 3, 40, 14, WS_GROUP
+        PUSHBUTTON      "~Cancel", DID_CANCEL, 132, 3, 40, 14
+        PUSHBUTTON      "Help", DID_HELP, 180, 3, 40, 14, BS_HELP |
+                        BS_NOPOINTERFOCUS | WS_GROUP | NOT WS_TABSTOP
+    }
+}
+
+// --------------------------------------------------------------------------
+// Build the DIALOG TEMPLATE for the data changed notification dialog
+// --------------------------------------------------------------------------
+DLGTEMPLATE CHANGED_ID LOADONCALL MOVEABLE DISCARDABLE
+{
+    DIALOG  "CARDFILE", CHANGED_ID, 41, 96, 192, 47, WS_VISIBLE, FCF_SYSMENU |
+            FCF_TITLEBAR
+    {
+        LTEXT           "The current data file has been modified.  Select ac"
+                        "tion to be taken.", 201, 7, 18, 179, 19,
+                        DT_WORDBREAK
+        PUSHBUTTON      "Save ~as...", DID_SAVECHANGES, 6, 2, 52, 14
+        PUSHBUTTON      "~Discard changes", DID_DISCARDCHANGES, 63, 2, 79,
+                        14
+        PUSHBUTTON      "~Cancel", DID_CANCEL, 146, 2, 40, 14
+    }
+}
+
+// --------------------------------------------------------------------------
+// Build the DIALOG TEMPLATE for the card display dialog
+// --------------------------------------------------------------------------
+DLGTEMPLATE DID_CARD LOADONCALL MOVEABLE DISCARDABLE
+{
+    DIALOG  "Dialog Title", DID_CARD, 70, 53, 250, 100, NOT FS_DLGBORDER |
+            FS_BORDER
+    {
+        LTEXT           "", DIT_LASTNAME, 6, 90, 111, 8
+        LTEXT           "", DIT_NAMEINIT, 126, 90, 118, 8
+        LTEXT           "", DIT_COMPANY, 6, 82, 236, 8
+        LTEXT           "", DIT_ADDR1, 6, 74, 236, 8
+        LTEXT           "", DIT_ADDR2, 6, 66, 236, 8
+        LTEXT           "", DIT_CITY, 6, 58, 111, 8
+        LTEXT           "", DIT_STATE, 126, 58, 17, 8
+        LTEXT           "", DIT_ZIP, 148, 58, 75, 8
+        LTEXT           "", DIT_TELNO, 6, 50, 111, 8
+        LTEXT           "", DIT_DOB, 126, 50, 118, 8
+        LTEXT           "", DIT_ANN, 126, 42, 110, 8
+        MLE             "", DIT_INFO, 3, 2, 219, 38, MLS_READONLY |
+                        MLS_WORDWRAP | MLS_VSCROLL | WS_GROUP
+        ICON            APPLICATION_ID, DIT_ICON, 225, 3, 18, 15, WS_GROUP
+        CTEXT           "", DIT_RATING, 225, 28, 20, 8
+    }
+}
+
+// --------------------------------------------------------------------------
+// Define the template for the product information dialog.
+// --------------------------------------------------------------------------
+DLGTEMPLATE PRODINFO_ID LOADONCALL MOVEABLE DISCARDABLE
+{
+ DIALOG  "CARDFILE - Product Information", PRODINFO_ID, 75, 75, 275, 130,,FCF_TITLEBAR | FCF_SYSMENU
+ {
+  CONTROL         IDB_PRODINFO, IDB_PRODINFO, 20, 90, 21, 21, WC_STATIC, SS_BITMAP | WS_GROUP | WS_VISIBLE
+  LTEXT          "CARDFILE",                                                    -1   85,  90, 150,  25 PP_PROGTITLE
+  CTEXT           "OS/2 Warp Presentation Manager for Power Programmers",       -1,   7,  65, 255,  8
+  CTEXT           "Chapter 11 Sample Program",                                  -1,   7,  55, 255,  8
+  CTEXT           "by Uri J. Stern and James S. Morrow",                        -1,   7,  45, 255,  8
+  DEFPUSHBUTTON   "~OK"                                                     DID_OK, 115,   8,  45, 16, WS_GROUP
+ }
+}
+
+

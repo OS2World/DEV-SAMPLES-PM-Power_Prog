@@ -1,0 +1,196 @@
+// ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+// บ  FILENAME:      CLKDRAW.RC                                       mm/dd/yy     บ
+// บ                                                                               บ
+// บ  DESCRIPTION:   Resource Script File for CLKDRAW executable                   บ
+// บ                                                                               บ
+// บ  NOTES:         This file contains all of the resource information for the    บ
+// บ                 CLKDRAW executable including the dialog templates, menus,     บ
+// บ                 accelerators and stringtables.                                บ
+// บ                                                                               บ
+// บ  PROGRAMMER:    Uri Joseph Stern and James Stan Morrow                        บ
+// บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ
+// บ                                                                               บ
+// บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ
+// บ                                                                               บ
+// ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+
+#include <os2.h>
+#include "clkdraw.h"
+
+// --------------------------------------------------------------------------
+// Redefine these here, so we do not have to include PMGPI.H.  These
+// are all the line types that are supported by the drawing.
+// --------------------------------------------------------------------------
+#define LINETYPE_DOT                    1L   
+#define LINETYPE_SHORTDASH              2L   
+#define LINETYPE_DASHDOT                3L   
+#define LINETYPE_DOUBLEDOT              4L   
+#define LINETYPE_LONGDASH               5L   
+#define LINETYPE_DASHDOUBLEDOT          6L   
+#define LINETYPE_SOLID                  7L   
+#define LINETYPE_INVISIBLE              8L   
+
+// --------------------------------------------------------------------------                   
+// Set the Presentation Parameters used by the product information 
+// dialog box.
+// --------------------------------------------------------------------------                   
+#define PP_PROGTITLE PRESPARAMS PP_FOREGROUNDCOLORINDEX, CLR_RED PRESPARAMS PP_FONTNAMESIZE, "28.Tms Rmn"
+
+// --------------------------------------------------------------------------                   
+// Define the icon, bitmap and pointer resources used by the application                                                                         
+// --------------------------------------------------------------------------                   
+ICON       ID_FRAME      PRELOAD clkdraw.ico
+ICON       ID_STATUSWND  PRELOAD clkdraw.ico
+BITMAP     IDB_PRODINFO          prodinfo.bmp
+POINTER    IDP_TRACKRECT         clkdraw.ptr
+
+// --------------------------------------------------------------------------
+// Define our accelerator table
+// --------------------------------------------------------------------------
+ACCELTABLE ID_FRAME PRELOAD
+{
+  VK_ESC, IDM_CLEAR,       VIRTUALKEY
+  VK_F1,  IDM_HELPGEN,     VIRTUALKEY
+  VK_F2,  IDM_HELPKEYS,    VIRTUALKEY
+  VK_F3,  IDM_EXIT,        VIRTUALKEY
+  VK_F5,  IDM_CONFIGURE,   VIRTUALKEY
+  VK_F6,  IDM_COLOR,       VIRTUALKEY       
+  VK_F7,  IDM_LINETYPE,    VIRTUALKEY                                 
+  VK_F8,  IDM_HIDEMOUSE,   VIRTUALKEY 
+  VK_F9,  IDM_HOTSPOT,     VIRTUALKEY 
+
+  "^R",   IDM_TRACKBOX          
+  "^r",   IDM_TRACKBOX           
+}
+
+
+// --------------------------------------------------------------------------
+// Define our action bar menu
+// --------------------------------------------------------------------------
+MENU ID_FRAME
+{
+ SUBMENU "~Options",                        ID_OPTIONSMENU
+  {
+   MENUITEM "Clear Screen\tESC",                 IDM_CLEAR
+   MENUITEM "Configure Spirographs...\tF5",      IDM_CONFIGURE
+   MENUITEM "Change Colors...\tF6",              IDM_COLOR
+   MENUITEM "Change Line Type...\tF7",           IDM_LINETYPE
+   MENUITEM SEPARATOR
+   MENUITEM "Hide Mouse Pointer\tF8",            IDM_HIDEMOUSE
+   MENUITEM "View Pointer Hotspot\tF9",          IDM_HOTSPOT
+   MENUITEM SEPARATOR
+   MENUITEM "E~xit\tF3",                         IDM_EXIT
+  }
+
+ SUBMENU "~Edit",                           ID_EDITMENU 
+  {                                                        
+   MENUITEM "Capture ~Rectangle\tCtrl+R",        IDM_TRACKBOX       
+   MENUITEM SEPARATOR                                               
+   MENUITEM "Cu~t\tShift+Delete",                IDM_EDITCUT             
+   MENUITEM "~Copy\tCtrl+Insert",                IDM_EDITCOPY            
+   MENUITEM "Paste",                             IDM_EDITPASTE
+  }
+
+ SUBMENU "~Help",                           ID_HELPMENU, MIS_HELP 
+  {
+   MENUITEM "~General help",                     IDM_HELPGEN
+   MENUITEM "~Keys help",                        IDM_HELPKEYS
+   MENUITEM SEPARATOR
+   MENUITEM "~Product Information",              IDM_PRODINFO
+  }
+}
+
+
+// --------------------------------------------------------------------------
+// The Configure Spirographs dialog template
+// --------------------------------------------------------------------------
+DLGTEMPLATE IDD_CONFIGURE PRELOAD MOVEABLE DISCARDABLE
+{
+ DIALOG  "CLKDRAW - Configure Spirographs", IDD_CONFIGURE, 75, 75, 275, 130,, FCF_TITLEBAR | FCF_SYSMENU | FCF_DLGBORDER
+  {
+   GROUPBOX        "Pointer Position Coordinates" -1                    3,   70,  260,  50             
+   AUTORADIOBUTTON "Use Window Coordinates"       IDR_WINCOOR,         45,   95,  120,   8, WS_GROUP  
+   AUTORADIOBUTTON "Use Screen Coordinates"       IDR_SCRCOOR,         45,   85,  120,   8,            
+
+   LTEXT   "Rotation Angle"                       -1,                  90,   50,   80,   8
+   SPINBUTTON                                     ID_SPINBUTTON,      170,   50,   30,  12, SPBS_MASTER | SPBS_NUMERICONLY
+
+   DEFPUSHBUTTON "~OK"                            DID_OK,              40,    8,   50,  16, WS_GROUP
+   PUSHBUTTON    "~Cancel"                        DID_CANCEL,         110,    8,   50,  16
+   PUSHBUTTON    "~Help"                          DID_HELP,           180,    8,   50,  16
+  }
+}
+
+
+// --------------------------------------------------------------------------
+// The Product Information dialog template
+// --------------------------------------------------------------------------
+DLGTEMPLATE IDD_PRODINFO LOADONCALL MOVEABLE DISCARDABLE
+{
+    DIALOG  "CLKDRAW - Product Information", IDD_PRODINFO, 75, 75, 275, 130,,FCF_TITLEBAR | FCF_SYSMENU      
+    {
+        CONTROL         IDB_PRODINFO, IDB_PRODINFO, 20, 90, 21, 21, WC_STATIC, SS_BITMAP | WS_GROUP | WS_VISIBLE
+        LTEXT          "CLKDRAW",                                                     -1   85,  90, 150,  25 PP_PROGTITLE
+        CTEXT           "OS/2 Warp Presentation Manager for Power Programmers",       -1,   7,  65, 255,  8
+        CTEXT           "Chapter 4 Sample Program",                                   -1,   7,  55, 255,  8
+        CTEXT           "by Uri J. Stern and James S. Morrow",                        -1,   7,  45, 255,  8
+        DEFPUSHBUTTON   "~OK"                                                     DID_OK, 115,   8,  45, 16, WS_GROUP
+    }
+}
+
+
+// --------------------------------------------------------------------------
+// The Change Drawing Color dialog template
+// --------------------------------------------------------------------------
+DLGTEMPLATE IDD_COLOR PRELOAD MOVEABLE DISCARDABLE                                                                    
+{                                                                                                                     
+ DIALOG  "CLKDRAW - Change Drawing Color", IDD_COLOR, 75, 75, 275, 150,, FCF_TITLEBAR | FCF_SYSMENU | FCF_DLGBORDER    
+  {                                                                                                                   
+   GROUPBOX      "Draw Color"           -1                             10,   50,  255,  80                            
+                                                                                                                      
+   AUTORADIOBUTTON "Blue"               CLR_BLUE,                      45,  110,   80,   8,  WS_GROUP                 
+   AUTORADIOBUTTON "Red"                CLR_RED,                       45,  100,   80,   8,                           
+   AUTORADIOBUTTON "Pink"               CLR_PINK,                      45,   90,   80,   8,                           
+   AUTORADIOBUTTON "Green"              CLR_GREEN,                     45,   80,   80,   8,                           
+   AUTORADIOBUTTON "Cyan"               CLR_CYAN,                      45,   70,   80,   8,                           
+   AUTORADIOBUTTON "Yellow"             CLR_YELLOW,                    45,   60,   80,   8,                           
+                                                                                                                      
+   AUTORADIOBUTTON "Dark Blue"          CLR_DARKBLUE,                 145,  110,   80,   8,                           
+   AUTORADIOBUTTON "Dark Red"           CLR_DARKRED,                  145,  100,   80,   8,                           
+   AUTORADIOBUTTON "Dark Pink"          CLR_DARKPINK,                 145,   90,   80,   8,                           
+   AUTORADIOBUTTON "Dark Green"         CLR_DARKGREEN,                145,   80,   80,   8,                           
+   AUTORADIOBUTTON "Dark Cyan"          CLR_DARKCYAN,                 145,   70,   80,   8,                           
+   AUTORADIOBUTTON "Brown"              CLR_BROWN,                    145,   60,   80,   8,                           
+                                                                                                                      
+   DEFPUSHBUTTON "~OK"                  DID_OK,                        40,    8,   50,  16,  WS_GROUP                 
+   PUSHBUTTON    "~Cancel"              DID_CANCEL,                   110,    8,   50,  16                            
+   PUSHBUTTON    "~Help"                DID_HELP,                     180,    8,   50,  16                            
+  }                                                                                                                   
+}                                                                                                                     
+
+
+// --------------------------------------------------------------------------
+// The Change Line Type dialog template
+// --------------------------------------------------------------------------
+DLGTEMPLATE IDD_LINETYPE PRELOAD MOVEABLE DISCARDABLE                                                                     
+{                                                                                                                      
+ DIALOG  "CLKDRAW - Change Line Type", IDD_LINETYPE, 75, 75, 275, 150,, FCF_TITLEBAR | FCF_SYSMENU | FCF_DLGBORDER     
+  {                                                                                                                    
+   GROUPBOX      "Line Types"           -1                             10,   70,  255,  60                             
+                                                                                                                       
+   AUTORADIOBUTTON "Dot"                LINETYPE_DOT,                  45,  110,   80,   8,  WS_GROUP                
+   AUTORADIOBUTTON "Short Dash"         LINETYPE_SHORTDASH,            45,  100,   80,   8,                            
+   AUTORADIOBUTTON "Dash Dot"           LINETYPE_DASHDOT,              45,   90,   80,   8,                            
+   AUTORADIOBUTTON "Double Dot"         LINETYPE_DOUBLEDOT,            45,   80,   80,   8,                            
+   AUTORADIOBUTTON "Long Dash"          LINETYPE_LONGDASH,            145,  110,   80,   8,                            
+   AUTORADIOBUTTON "Dash Double Dot"    LINETYPE_DASHDOUBLEDOT,       145,  100,   80,   8,                            
+   AUTORADIOBUTTON "Solid"              LINETYPE_SOLID,               145,   90,   80,   8       
+   AUTORADIOBUTTON "Invisible"          LINETYPE_INVISIBLE,           145,   80,   80,   8,                            
+                                                                                                                       
+   DEFPUSHBUTTON "~OK"                  DID_OK,                        40,    8,   50,  16,  WS_GROUP                  
+   PUSHBUTTON    "~Cancel"              DID_CANCEL,                   110,    8,   50,  16                             
+   PUSHBUTTON    "~Help"                DID_HELP,                     180,    8,   50,  16                             
+  }                                                                                                                    
+}                                                                                                                      
+                                                                                                                       
+

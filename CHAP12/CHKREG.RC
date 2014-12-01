@@ -1,0 +1,167 @@
+// ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+// บ  FILENAME:      CHKREG.RC                                        mm/dd/yy     บ
+// บ                                                                               บ
+// บ  DESCRIPTION:   Main resource script for CHKREG                               บ
+// บ                                                                               บ
+// บ  NOTES:         None                                                          บ
+// บ                                                                               บ
+// บ  PROGRAMMER:    Uri Joseph Stern and James Stan Morrow                        บ
+// บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ
+// บ                                                                               บ
+// บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ
+// บ                                                                               บ
+// ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+
+#include "chkreg.h"
+
+#define TEXT_COLOR   PRESPARAMS PP_FOREGROUNDCOLORINDEX  
+#define PP_PROGTITLE PRESPARAMS PP_FOREGROUNDCOLORINDEX, CLR_RED PRESPARAMS PP_FONTNAMESIZE, "28.Tms Rmn"
+
+// --------------------------------------------------------------------------
+// Build application ICON/BITMAP/POINTER resources
+// --------------------------------------------------------------------------
+ICON    RID_CHKREG      chkreg.ico
+POINTER ICON_WITHDRAW   WITHDRAW.PTR      // Normal size withdrawal icon
+POINTER ICON_DEPOSIT    DEPOSIT.PTR       // Normal size deposit icon
+POINTER ICON_DEPOSITM   DEPOSITM.PTR      // Small deposit icon
+POINTER ICON_WITHDRAWM  WITHDRAM.PTR      // Small withdrawal icon
+BITMAP  BMP_WITHDRAWB   WITHDRAW.BMP      // Normal size withdrawal bitmap
+BITMAP  BMP_DEPOSITB    DEPOSIT.BMP       // Normal size deposit bitmap
+BITMAP  BMP_WITHDRAWM   WITHDRAM.BMP      // Small size withdrawal bitmap
+BITMAP  BMP_DEPOSITM    DEPOSITM.BMP      // Small size deposit bitmap
+BITMAP  IDB_PRODINFO    prodinfo.bmp
+BITMAP  ID_CNRBITMAP    logo.bmp
+
+
+// --------------------------------------------------------------------------     
+// Define our accelerator keys                                
+// --------------------------------------------------------------------------     
+ACCELTABLE RID_CHKREG PRELOAD          
+{                                     
+  "^A",      MID_TRN_ENTER             
+  "^a",      MID_TRN_ENTER              
+  "^D",      MID_TRN_DELETE     
+  "^d",      MID_TRN_DELETE         
+  "^N",      MID_FILENEW      
+  "^n",      MID_FILENEW   
+  "^O",      MID_FILEOPEN      
+  "^o",      MID_FILEOPEN   
+  "^S",      MID_FILESAVEAS      
+  "^s",      MID_FILESAVEAS   
+}
+
+// --------------------------------------------------------------------------
+// Build resource for the container context popup menu
+// --------------------------------------------------------------------------
+MENU MID_POPUP
+{
+   MENUITEM "~Delete",  MID_POP_DELETE
+}
+
+// --------------------------------------------------------------------------
+// Build resource for the application's main menu
+// --------------------------------------------------------------------------
+MENU RID_CHKREG
+{
+   SUBMENU "~File",   MID_FILE
+   {
+      MENUITEM "~New\tCtrl+N",         MID_FILENEW
+      MENUITEM "~Open...\tCtrl+O",     MID_FILEOPEN
+      MENUITEM "Save ~as...\tCtrl+S",  MID_FILESAVEAS
+      MENUITEM SEPARATOR
+      MENUITEM "E~xit",                MID_EXIT
+   }
+   SUBMENU "~Transaction", MID_TRANS
+   {
+      MENUITEM "~Add...\tCtrl+A",      MID_TRN_ENTER
+      MENUITEM "~Delete\tCtrl+D",      MID_TRN_DELETE
+   }
+   SUBMENU "~View",   MID_VIEW
+   {
+      MENUITEM "~Icon",                MID_VIEWICON
+      MENUITEM "~Name",                MID_VIEWNAME
+      MENUITEM "~Text",                MID_VIEWTEXT
+      MENUITEM "~Detail",              MID_VIEWDETAIL,   ,  MIA_CHECKED
+      MENUITEM SEPARATOR
+      MENUITEM "T~ree",                MID_VIEWTREE,     ,  MIA_DISABLED
+      MENUITEM "~Mini",                MID_VIEWMINI,     ,  MIA_DISABLED
+      MENUITEM "~Flow",                MID_VIEWFLOW,     ,  MIA_DISABLED
+      SUBMENU  "T~ype",                MID_VIEWTYPE,     ,  MIA_DISABLED
+      {
+         MENUITEM "I~con",             MID_VIEWICONS,    ,  MIA_CHECKED
+         MENUITEM "~Bitmap",           MID_VIEWBITMAPS
+      }
+      MENUITEM SEPARATOR
+      MENUITEM "Background Bitmap...", MID_BACKBMP  
+   }
+   SUBMENU "~Help",   MID_HELP
+   {
+      MENUITEM "~Product Information", MID_PRODINFO
+   }
+}
+
+// --------------------------------------------------------------------------
+// Build the DIALOG TEMPLATE resource for the transaction entry dialog
+// --------------------------------------------------------------------------
+DLGTEMPLATE RID_TRANSACTION LOADONCALL MOVEABLE DISCARDABLE
+{
+ DIALOG  "Add a Transaction", RID_TRANSACTION, 23, 61, 329, 110, WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR   
+ {
+     LTEXT           "Transaction Type:",           0,   14, 96,  76,  8, NOT WS_GROUP          
+
+     AUTORADIOBUTTON "~Withdrawal",       CID_TRN_WTH,  103, 95,  61, 10, WS_TABSTOP | WS_GROUP 
+     AUTORADIOBUTTON "~Deposit",          CID_TRN_DEP,  175, 95,  45, 10, WS_TABSTOP
+
+     LTEXT           "Reference/Check #:",          0,   14, 80,  90,  8, NOT WS_GROUP
+     ENTRYFIELD      "",                  CID_TRN_REF,  105, 80,  32,  8, ES_MARGIN
+
+     LTEXT           "Transaction Date:",           0,   14, 65,  85,  8               TEXT_COLOR, CLR_RED           
+     ENTRYFIELD      "",                  CID_TRN_DATE, 105, 65,  60,  8, ES_MARGIN
+
+     LTEXT           "Amount:",                     0,   14, 50,  34,  8, NOT WS_GROUP TEXT_COLOR, CLR_RED
+     ENTRYFIELD      "",                  CID_TRN_AMT,  105, 50,  60,  8, ES_MARGIN
+
+     LTEXT           "Description:",                0,   14, 35,  90,  8, NOT WS_GROUP
+     ENTRYFIELD      "",                  CID_TRN_MEMO, 105, 35, 200,  8, ES_MARGIN
+
+     DEFPUSHBUTTON   "~OK",               DID_OK,        90,  5,  40, 14, WS_GROUP
+     PUSHBUTTON      "~Cancel",           DID_CANCEL,   140,  5,  40, 14
+     PUSHBUTTON      "~Help"              DID_HELP,     190,  5,  45, 14,
+ }
+}
+
+// --------------------------------------------------------------------------
+// Define the template for the product information dialog.
+// --------------------------------------------------------------------------
+DLGTEMPLATE RID_PRODINFO LOADONCALL MOVEABLE DISCARDABLE
+{
+ DIALOG  "CHKREG - Product Information", RID_PRODINFO, 75, 75, 275, 130,,FCF_TITLEBAR | FCF_SYSMENU
+ {
+  CONTROL         IDB_PRODINFO, IDB_PRODINFO, 20, 90, 21, 21, WC_STATIC, SS_BITMAP | WS_GROUP | WS_VISIBLE
+  LTEXT          "CHKREG",                                                      -1   95,  90, 150,  25 PP_PROGTITLE
+  CTEXT           "OS/2 Warp Presentation Manager for Power Programmers",       -1,   7,  65, 255,  8
+  CTEXT           "Chapter 12 Sample Program",                                  -1,   7,  55, 255,  8
+  CTEXT           "by Uri J. Stern and James S. Morrow",                        -1,   7,  45, 255,  8
+  DEFPUSHBUTTON   "~OK"                                                     DID_OK, 115,   8,  45, 16, WS_GROUP
+ }
+}
+
+
+// --------------------------------------------------------------------------
+// Background Bitmap dialog template
+// --------------------------------------------------------------------------
+DLGTEMPLATE RID_BITMAP LOADONCALL MOVEABLE DISCARDABLE
+{
+ DIALOG  "CHKREG - Background Bitmap", RID_BITMAP, 75, 75, 250, 100, FS_NOBYTEALIGN | WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+  {
+   LTEXT "This dialog allows you to configure whether or not",      -1,  10, 80, 220,  8
+   LTEXT "the background bitmap will be displayed on startup.",     -1,  10, 70, 220,  8
+   AUTORADIOBUTTON   "Use it",                  IDC_USEIT,              100, 50,  90, 10, WS_GROUP
+   AUTORADIOBUTTON   "Lose it",                 IDC_LOSEIT,             100, 40,  90, 10
+
+   DEFPUSHBUTTON  "~OK"                         DID_OK,                  40,  8,  45, 15, WS_GROUP
+   PUSHBUTTON     "~Cancel"                     DID_CANCEL,             100,  8,  45, 15,
+   PUSHBUTTON     "~Help"                       DID_HELP,               160,  8,  45, 15,
+  }
+}
+

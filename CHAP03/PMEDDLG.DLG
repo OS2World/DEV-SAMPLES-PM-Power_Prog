@@ -1,0 +1,49 @@
+// ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+// บ  FILENAME:      PMEDDLG.DLG                                      mm/dd/yy     บ
+// บ                                                                               บ
+// บ  DESCRIPTION:   Resource script file for PMED Dialogs                         บ
+// บ                                                                               บ
+// บ  NOTES:         It's a buncha simple dialog boxes                             บ
+// บ                                                                               บ
+// บ  PROGRAMMER:    Uri Joseph Stern and James Stan Morrow                        บ
+// บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ
+// บ                                                                               บ
+// บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ
+// บ                                                                               บ
+// ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+
+#ifndef OS2_INCLUDED
+   #include <os2.h>
+#endif
+DLGINCLUDE 1 "pmeddlg.h"
+
+#define PP_PROGTITLE PRESPARAMS PP_FOREGROUNDCOLORINDEX, CLR_RED PRESPARAMS PP_FONTNAMESIZE, "28.Tms Rmn"  
+
+BITMAP     IDB_PRODINFO          prodinfo.bmp       
+
+DLGTEMPLATE DLGID_PRODINFO LOADONCALL MOVEABLE DISCARDABLE
+{
+ DIALOG  "PMED - Product Information", DLGID_PRODINFO, 75, 75, 275, 130,,FCF_TITLEBAR | FCF_SYSMENU
+ {
+  CONTROL         IDB_PRODINFO, IDB_PRODINFO, 20, 90, 21, 21, WC_STATIC, SS_BITMAP | WS_GROUP | WS_VISIBLE
+  LTEXT          "PMED",                                                        -1  105,  90, 150,  25 PP_PROGTITLE
+  CTEXT           "OS/2 Warp Presentation Manager for Power Programmers",       -1,   7,  65, 255,  8
+  CTEXT           "Chapter 3 Sample Program",                                   -1,   7,  55, 255,  8
+  CTEXT           "by Uri J. Stern and James S. Morrow",                        -1,   7,  45, 255,  8
+  DEFPUSHBUTTON   "~OK"                                                     DID_OK, 115,   8,  45, 16, WS_GROUP
+ }
+}
+
+DLGTEMPLATE DID_NOTSAVED LOADONCALL MOVEABLE DISCARDABLE
+{
+ DIALOG  "PMED - Warning", DID_NOTSAVED, 37, 80, 203, 60, WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR 
+ {
+  ICON            SPTR_ICONWARNING,         DID_ICON,     9, 31,  21, 16, WS_GROUP | SS_SYSICON
+  LTEXT           "%s has not been saved!", DID_MESSAGE, 41, 26, 153, 24, DT_WORDBREAK 
+  PUSHBUTTON      "Save ~as...",            DID_OK,       6,  4,  52, 14
+  PUSHBUTTON      "~Discard",               DID_DISCARD, 63,  4,  42, 14
+  PUSHBUTTON      "~Cancel",                DID_CANCEL, 110,  4,  40, 14
+  PUSHBUTTON      "Help",                   DID_HELP,   155,  4,  40, 14, BS_HELP | BS_NOPOINTERFOCUS | NOT WS_TABSTOP 
+ }
+}
+

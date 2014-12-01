@@ -1,0 +1,86 @@
+// ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+// บ  FILENAME:      WINCHART.RC                                      mm/dd/yy     บ
+// บ                                                                               บ
+// บ  DESCRIPTION:   Resource Script File for WINCHART                             บ
+// บ                                                                               บ
+// บ  NOTES:         This file contains all of the various dialog templates,       บ
+// บ                 menu defintions, keyboard accelerators and message tables     บ
+// บ                 that are used by WINCHART.                                    บ
+// บ                                                                               บ
+// บ  PROGRAMMER:    Uri Joseph Stern and James Stan Morrow                        บ
+// บ  COPYRIGHTS:    OS/2 Warp Presentation Manager for Power Programmers          บ
+// บ                                                                               บ
+// บ  REVISION DATES:  mm/dd/yy  Created this file                                 บ
+// บ                                                                               บ
+// ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+#include <windows.h>
+#include "winchart.h"
+
+// --------------------------------------------------------------------------                  
+// Define the icon, bitmap and pointer resources used by the application                       
+// --------------------------------------------------------------------------                  
+WINCHART ICON "WINCHART.ICO"
+
+// --------------------------------------------------------------------------           
+// Define our action bar menu                                                           
+// --------------------------------------------------------------------------           
+MainMenu MENU
+{
+ POPUP "&Chart"
+  {
+   MENUITEM "Receive Chart Data...\tF5", IDM_CHART
+   MENUITEM "Product Information...",    IDM_PRODINFO
+   MENUITEM SEPARATOR
+   MENUITEM "Exit\tF3",                  IDM_EXIT
+  }
+}
+
+// --------------------------------------------------------------------------          
+// Define our accelerator table                                                        
+// --------------------------------------------------------------------------          
+WINCHART ACCELERATORS
+{
+ VK_F3, IDM_EXIT,  VIRTKEY
+ VK_F5, IDM_CHART, VIRTKEY
+}
+
+// --------------------------------------------------------------------------              
+// The Draw Chart Statistics Dialog Template                                                 
+// --------------------------------------------------------------------------              
+IDD_CHART DIALOG 101, 67, 300, 160
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "WINCHART - Draw Chart Statistics"
+FONT 8, "MS Sans Serif"
+{
+ LTEXT           "Status Line:",        -1,                 14,  30, 100,  8
+ LTEXT           "",                    ID_STATUSLINE,      80,  30, 190,  8  // This is the Status Line
+
+
+ LTEXT           "Application Name:",   -1,                 14,  40, 100,  8
+ LTEXT           "",                    ID_APPNAME,         80,  40, 190,  8
+
+
+ LTEXT           "Topic Name:",         -1,                 14   50, 100,  8
+ LTEXT           "",                    ID_TOPICNAME,       80,  50, 191,  8
+
+
+ LTEXT           "Data Received:",      -1,                 14,  80, 100,  8
+ LTEXT           "",                    ID_DATA,            80,  80, 195,  8
+ PUSHBUTTON      "Co&nnect",            DID_OK,             75, 130,  60, 16
+ PUSHBUTTON      "&Close",              DID_CANCEL,        150, 130,  60, 16
+}
+
+// --------------------------------------------------------------------------                    
+// The Product Information Dialog Template                                                       
+// --------------------------------------------------------------------------                    
+IDD_PRODINFO DIALOG LOADONCALL MOVEABLE DISCARDABLE 75, 75, 275, 100
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "WINCHART - Product Information"
+{
+ ICON            "WINCHART"                                                    -1,     5,  10,   0,   0
+ CTEXT           "OS/2 Warp Presentation Manager for Power Programmers",       -1,    40,  20,  200,  8
+ CTEXT           "Chapter 9 Sample Program",                                   -1,    40,  30,  200,  8
+ CTEXT           "Uri J. Stern and James S. Morrow",                           -1,    40,  40,  200,  8
+ DEFPUSHBUTTON   "&OK"                                                     DID_OK,   115,  70,   45, 15, WS_GROUP
+}
+
